@@ -10,22 +10,21 @@
  */
 #pragma once
 
-struct Tree {
-	typedef int T;
-	static constexpr T unit = INT_MIN;
-	T f(T a, T b) { return max(a, b); } // (any associative fn)
-	vector<T> s; int n;
-	Tree(int n = 0, T def = unit) : s(2*n, def), n(n) {}
-	void update(int pos, T val) {
-		for (s[pos += n] = val; pos /= 2;)
-			s[pos] = f(s[pos * 2], s[pos * 2 + 1]);
+namespace seg {
+	using T = ll;
+	T id=0;
+	T f(T a, T b) {return a+b;}
+	T t[2 * NN];
+	ll n=NN;  // array size
+	void modify(ll p, T value) {  // set value at position p
+		for (p+=n, t[p] = value; p /= 2;) t[p] = f(t[2*p], t[2*p+1]);
 	}
-	T query(int b, int e) { // query [b, e)
-		T ra = unit, rb = unit;
-		for (b += n, e += n; b < e; b /= 2, e /= 2) {
-			if (b % 2) ra = f(ra, s[b++]);
-			if (e % 2) rb = f(s[--e], rb);
+	T query(ll l, ll r) { // fold f on interval [l, r)
+		T resl=id, resr=id;
+		for (l += n, r += n; l < r; l /= 2, r /= 2) {
+			if (l&1) resl = f(resl, t[l++]);
+			if (r&1) resr = f(t[--r], resr);
 		}
-		return f(ra, rb);
+		return f(resl, resr);
 	}
-};
+}
