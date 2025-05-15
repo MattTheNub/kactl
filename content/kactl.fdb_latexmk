@@ -4,15 +4,15 @@
   (generated)
   "kactl.pdf"
   (rewritten before read)
-["xelatex"] 1747333514.28004 "/home/matt/code/kactl/content/kactl.tex" "kactl.xdv" "kactl" 1747333515.08719 2
-  "/home/matt/code/kactl/content/kactl.tex" 1747333512.68701 918 47cc2f84a87ff980b358b585c4927fad ""
+["xelatex"] 1747336889.09182 "/home/matt/code/kactl/content/kactl.tex" "kactl.xdv" "kactl" 1747336889.99491 2
+  "/home/matt/code/kactl/content/kactl.tex" 1747336887.36465 917 e6d353009b2cddb3ddb958c8fb12c0b2 ""
   "/usr/share/texlive/texmf-dist/tex/latex/base/exscale.sty" 1737590400 2581 a44c6c0f51707a5175042cbf68bd39cc ""
   "/usr/share/texlive/texmf-dist/tex/latex/extsizes/extreport.cls" 1137110130 23786 cbd79291aa0922c48a73753b97cabb5f ""
   "/usr/share/texlive/texmf-dist/tex/latex/extsizes/size9.clo" 1137110130 6172 b9daf86befd6903b2699dddbd6fb97c1 ""
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1737590400 40900 887e0dc8cac988a9e9c574af364cf837 ""
   "/var/lib/texmf/web2c/xetex/xelatex.fmt" 1745106454 11133766 6e3f02f10d03767a55a7b5b3476f7a55 ""
-  "kactl.aux" 1747333514.27739 32 3985256e7290058c681f74d7a3565a19 "xelatex"
-  "kactl.tex" 1747333512.68701 918 47cc2f84a87ff980b358b585c4927fad ""
+  "kactl.aux" 1747336889.09002 32 3985256e7290058c681f74d7a3565a19 "xelatex"
+  "kactl.tex" 1747336887.36465 917 e6d353009b2cddb3ddb958c8fb12c0b2 ""
   "kactlpkg.sty" 0 -1 0 ""
   (generated)
   "kactl.aux"
