@@ -24,7 +24,7 @@ struct Maxclique {
 		for (auto& v : r) for (auto j : r) v.d += e[v.i][j.i];
 		sort(all(r), [](auto a, auto b) { return a.d > b.d; });
 		int mxD = r[0].d;
-		rep(i,0,sz(r)) r[i].d = min(i, mxD) + 1;
+		krep(i,0,sz(r)) r[i].d = min(i, mxD) + 1;
 	}
 	void expand(vv& R, int lev = 1) {
 		S[lev] += S[lev - 1] - old[lev];
@@ -47,7 +47,7 @@ struct Maxclique {
 					C[k].push_back(v.i);
 				}
 				if (j > 0) T[j - 1].d = 0;
-				rep(k,mnk,mxk + 1) for (int i : C[k])
+				krep(k,mnk,mxk + 1) for (int i : C[k])
 					T[j].i = i, T[j++].d = k;
 				expand(T, lev + 1);
 			} else if (sz(q) > sz(qmax)) qmax = q;
@@ -56,6 +56,6 @@ struct Maxclique {
 	}
 	vi maxClique() { init(V), expand(V); return qmax; }
 	Maxclique(vb conn) : e(conn), C(sz(e)+1), S(sz(C)), old(S) {
-		rep(i,0,sz(e)) V.push_back({i});
+		krep(i,0,sz(e)) V.push_back({i});
 	}
 };

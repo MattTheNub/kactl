@@ -3,9 +3,9 @@
 #include "../../content/number-theory/ContinuedFractions.h"
 
 int main() {
-	rep(n,1,300) {
+	krep(n,1,300) {
 		vector<pair<double, pii>> v;
-		rep(i,0,n+1) rep(j,1,n+1) if (__gcd(i,j) == 1) {
+		krep(i,0,n+1) krep(j,1,n+1) if (__gcd(i,j) == 1) {
 			double r = (double)i / j;
 			v.emplace_back(r, pii(i,j));
 		}
@@ -13,7 +13,7 @@ int main() {
 		sort(all(v));
 		map<double, pii> actual(all(v));
 
-		rep(iter,0,100000) {
+		krep(iter,0,100000) {
 			double x = rand() / (RAND_MAX + 1.0) * 3;
 			if (rand() % 2 == 0) x = (rand() % (3*n)) / (double)(rand() % (3*n) + 1);
 			auto pa = approximate(x, n);

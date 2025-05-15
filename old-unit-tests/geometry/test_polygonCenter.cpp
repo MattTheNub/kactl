@@ -33,7 +33,7 @@ public:
 			check(polygonCenter(p,p+6),P(3,2));
 		} else if (subcase == 6) {
 			P p[] = {P(1,1),P(1,4),P(3,4),P(4,3),P(5,4),P(5,1)};
-			rep(i,0,6) p[i]=p[i]*6*11;
+			krep(i,0,6) p[i]=p[i]*6*11;
 			check(polygonCenter(p,p+6),P(192,158));
 		} else if (subcase == 7) {
 			P p[] = {P(0,0),P(3,3),P(0,3)};

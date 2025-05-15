@@ -30,7 +30,7 @@ template<class P> pair<bool, vector<P>> conquer(vector<P> pts, int depth) {
 	S[idx0].push_back(p1);
 	S[!idx0].push_back(p1);
 	S[!idx0].push_back(pts[1]);
-	rep(i,2,sz(pts)) {
+	krep(i,2,sz(pts)) {
 		if (i == divideId) continue;
 		int idx = ((line[0]*pts[i].x + line[1]*pts[i].y + line[2]) >=0);
 		S[idx].push_back(pts[i]);
@@ -54,7 +54,7 @@ template<class P> vector<P> genPolygon(vector<P> pts, int depth=0) {
 	S[0].push_back(pts[1]);
 	S[1].push_back(pts[1]);
 	S[1].push_back(pts[0]);
-	rep(i,2,sz(pts)) {
+	krep(i,2,sz(pts)) {
 		int idx = (line[0]*pts[i].x + line[1]*pts[i].y + line[2]) >=0;
 		S[idx].push_back(pts[i]);
 	}

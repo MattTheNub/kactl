@@ -36,11 +36,11 @@ vector<F> hull3d(const vector<P3>& A) {
 		E(a,b).ins(k); E(a,c).ins(j); E(b,c).ins(i);
 		FS.push_back(f);
 	};
-	rep(i,0,4) rep(j,i+1,4) rep(k,j+1,4)
+	krep(i,0,4) krep(j,i+1,4) krep(k,j+1,4)
 		mf(i, j, k, 6 - i - j - k);
 
-	rep(i,4,sz(A)) {
-		rep(j,0,sz(FS)) {
+	krep(i,4,sz(A)) {
+		krep(j,0,sz(FS)) {
 			F f = FS[j];
 			if(f.q.dot(A[i]) > f.q.dot(A[f.a])) {
 				E(a,b).rem(f.c);
@@ -51,7 +51,7 @@ vector<F> hull3d(const vector<P3>& A) {
 			}
 		}
 		int nw = sz(FS);
-		rep(j,0,nw) {
+		krep(j,0,nw) {
 			F f = FS[j];
 #define C(a, b, c) if (E(a,b).cnt() != 2) mf(f.a, f.b, i, f.c);
 			C(a, b, c); C(a, c, b); C(b, c, a);

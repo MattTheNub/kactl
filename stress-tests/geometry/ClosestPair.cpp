@@ -67,7 +67,7 @@ int main() {
 	// Compare against the old code
 	ll sum = 0;
 	int mode = 1;
-	if (mode != 0) rep(it,0,100) {
+	if (mode != 0) krep(it,0,100) {
 		// clog << it << ' ';
 		int n = 100000;
 		int maxx = rand() % 1000000 + 1;
@@ -75,7 +75,7 @@ int main() {
 		int biasx = -100;
 		int biasy = -100;
 		vector<P> ps;
-		rep(i,0,n) {
+		krep(i,0,n) {
 			int x = rand() % maxx + biasx;
 			int y = rand() % maxy + biasy;
 			ps.emplace_back(x, y);
@@ -100,20 +100,20 @@ int main() {
 	// cout << sum << endl;
 
 	// Compare against bruteforce
-	rep(it,0,1'000'000) {
+	krep(it,0,1'000'000) {
 		int n = rand() % 15 + 2;
 		int maxx = rand() % 20 + 1;
 		int maxy = rand() % 20 + 1;
 		int biasx = rand() % 20 - 10;
 		int biasy = rand() % 20 - 10;
 		vector<P> ps;
-		rep(i,0,n) {
+		krep(i,0,n) {
 			int x = rand() % maxx + biasx;
 			int y = rand() % maxy + biasy;
 			ps.emplace_back(x, y);
 		}
 		ll minDist = LLONG_MAX;
-		rep(i,0,n) rep(j,i+1,n) {
+		krep(i,0,n) krep(j,i+1,n) {
 			minDist = min(minDist, (ps[i] - ps[j]).dist2());
 		}
 		auto pa = closest(ps);

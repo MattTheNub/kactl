@@ -16,12 +16,12 @@ int main() {
 	iota(all(v), 0);
 	random_shuffle(all(v), [](int x) { return ra() % x; });
 	Node* tr = new Node(v,0,N);
-	rep(i,0,N) rep(j,0,N) if (i <= j) {
+	krep(i,0,N) krep(j,0,N) if (i <= j) {
 		int ma = -inf;
-		rep(k,i,j) ma = max(ma, v[k]);
+		krep(k,i,j) ma = max(ma, v[k]);
 		assert(ma == tr->query(i,j));
 	}
-	rep(it,0,1000000) {
+	krep(it,0,1000000) {
 		int i = ra() % (N+1), j = ra() % (N+1);
 		if (i > j) swap(i, j);
 		int x = (ra() % 10) - 5;
@@ -30,16 +30,16 @@ int main() {
 		if (r < 30) {
 			::res = tr->query(i, j);
 			int ma = -inf;
-			rep(k,i,j) ma = max(ma, v[k]);
+			krep(k,i,j) ma = max(ma, v[k]);
 			assert(ma == ::res);
 		}
 		else if (r < 70) {
 			tr->add(i, j, x);
-			rep(k,i,j) v[k] += x;
+			krep(k,i,j) v[k] += x;
 		}
 		else {
 			tr->set(i, j, x);
-			rep(k,i,j) v[k] = x;
+			krep(k,i,j) v[k] = x;
 		}
 	}
 	cout<<"Tests passed!"<<endl;

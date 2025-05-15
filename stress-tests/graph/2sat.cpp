@@ -7,7 +7,7 @@ int main1() {
 	// Random constraints, unsolvable
 	{
 		TwoSat ts(N);
-		rep(i,0,M) {
+		krep(i,0,M) {
 			int r = rand();
 			int s = r;
 			r >>= 2;
@@ -22,9 +22,9 @@ int main1() {
 	// Random solvable instance
 	{
 		vector<bool> v(N);
-		rep(i,0,N) v[i] = rand() & (1 << 20);
+		krep(i,0,N) v[i] = rand() & (1 << 20);
 		TwoSat ts(N);
-		rep(i,0,M) {
+		krep(i,0,M) {
 			int r = rand();
 			int s = r;
 			r >>= 2;
@@ -62,13 +62,13 @@ int main() {
 	main1();
 	main2();
 	const int N = 100, M = 400;
-	rep(it,0,100) {
+	krep(it,0,100) {
 		vector<bool> v(N);
-		rep(i,0,N) v[i] = ra() & (1 << 20);
+		krep(i,0,N) v[i] = ra() & (1 << 20);
 		TwoSat ts(N);
 		vector<vi> atm;
 		vi r;
-		rep(i,0,M) {
+		krep(i,0,M) {
 			if (ra()%100 < 5) {
 				int r = ra();
 				int s = r;
@@ -81,7 +81,7 @@ int main() {
 			} else {
 				int k = ra() % 4 + 1;
 				r.clear();
-				rep(ki,0,k-1) {
+				krep(ki,0,k-1) {
 					int a = ra() % N;
 					r.push_back(v[a] ? ~a : a);
 				}
@@ -93,7 +93,7 @@ int main() {
 		}
 		assert(ts.solve());
 		int to = 0;
-		rep(i,0,N) to += (ts.values[i] == v[i]);
+		krep(i,0,N) to += (ts.values[i] == v[i]);
 		for(auto &r: atm) {
 			int co = 0;
 			for(auto &x: r) co += (ts.values[max(x, ~x)] == (x >= 0));

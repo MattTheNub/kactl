@@ -10,7 +10,7 @@ int main() {
 	vector<P> ps = {P{0,0}, P{6,4}, P{0,9}};
 	int count = 0;
 	P su{0,0};
-	rep(it,0,100000) {
+	krep(it,0,100000) {
 		double x = rand() / (RAND_MAX + 1.0);
 		double y = rand() / (RAND_MAX + 1.0);
 		x *= 10;

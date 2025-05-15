@@ -26,7 +26,7 @@ bool find(int j, vector<vi>& g, vi& btoa, vi& vis) {
 }
 int dfsMatching(vector<vi>& g, vi& btoa) {
 	vi vis;
-	rep(i,0,sz(g)) {
+	krep(i,0,sz(g)) {
 		vis.assign(sz(btoa), 0);
 		for (int j : g[i])
 			if (find(j, g, btoa, vis)) {

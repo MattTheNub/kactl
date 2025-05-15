@@ -18,25 +18,25 @@ int solveLinear(vector<vd>& A, vd& b, vd& x) {
 	if (n) assert(sz(A[0]) == m);
 	vi col(m); iota(all(col), 0);
 
-	rep(i,0,n) {
+	krep(i,0,n) {
 		int v, bv = -1;
-		rep(r,i,n) rep(c,i,m)
+		krep(r,i,n) krep(c,i,m)
 			if ((v = A[r][c])) {
 				br = r, bc = c, bv = v;
 				goto found;
 			}
-		rep(j,i,n) if (b[j]) return -1;
+		krep(j,i,n) if (b[j]) return -1;
 		break;
 found:
 		swap(A[i], A[br]);
 		swap(b[i], b[br]);
 		swap(col[i], col[bc]);
-		rep(j,0,n) swap(A[j][i], A[j][bc]);
+		krep(j,0,n) swap(A[j][i], A[j][bc]);
 		bv = modinv(A[i][i]);
-		rep(j,i+1,n) {
+		krep(j,i+1,n) {
 			int fac = A[j][i] * bv % mod;
 			b[j] = (b[j] - fac * b[i]) % mod;
-			rep(k,i+1,m) A[j][k] = (A[j][k] - fac*A[i][k]) % mod;
+			krep(k,i+1,m) A[j][k] = (A[j][k] - fac*A[i][k]) % mod;
 		}
 		rank++;
 	}
@@ -45,7 +45,7 @@ found:
 	for (int i = rank; i--;) {
 		b[i] = ((b[i] * modinv(A[i][i]) % mod) + mod) % mod;
 		x[col[i]] = b[i];
-		rep(j,0,i)
+		krep(j,0,i)
 			b[j] = (b[j] - A[j][i] * b[i]);
 	}
 	return rank;
@@ -60,7 +60,7 @@ void rec(int i, int j, vector<vd>& A, F f) {
 		rec(i+1, 0, A, f);
 	}
 	else {
-		rep(v,0,mod) {
+		krep(v,0,mod) {
 			A[i][j] = v;
 			rec(i, j+1, A, f);
 		}
@@ -71,7 +71,7 @@ template<class F>
 void rec2(int i, vd& A, F f) {
 	if (i == sz(A)) f();
 	else {
-		rep(v,0,mod) {
+		krep(v,0,mod) {
 			A[i] = v;
 			rec2(i+1, A, f);
 		}
@@ -79,7 +79,7 @@ void rec2(int i, vd& A, F f) {
 }
 
 int main() {
-	rep(n,0,nmax+1) rep(m,0,mmax+1) {
+	krep(n,0,nmax+1) krep(m,0,mmax+1) {
 		int nm = n*m;
 		if (nm > nmmax) continue;
 		vector<vd> A(n, vd(m));
@@ -88,9 +88,9 @@ int main() {
 			rec2(0, b, [&]() {
 				int sols = 0;
 				rec2(0, x, [&]() {
-					rep(i,0,n) {
+					krep(i,0,n) {
 						int v = 0;
-						rep(j,0,m) v += A[i][j] * x[j];
+						krep(j,0,m) v += A[i][j] * x[j];
 						if (v % mod != b[i]) return;
 					}
 					sols++;

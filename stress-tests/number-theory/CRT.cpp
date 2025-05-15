@@ -12,7 +12,7 @@ ll randExp() {
 }
 
 int main(int argc, char** argv) {
-	rep(it,0,10000000) {
+	krep(it,0,10000000) {
 		ll a = randExp() * (rand() % 2 ? 1 : -1);
 		ll b = randExp() * (rand() % 2 ? 1 : -1);
 		ll m = randExp() + 1;

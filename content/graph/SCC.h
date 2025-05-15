@@ -37,5 +37,5 @@ template<class G, class F> void scc(G& g, F f) {
 	int n = sz(g);
 	val.assign(n, 0); comp.assign(n, -1);
 	Time = ncomps = 0;
-	rep(i,0,n) if (comp[i] < 0) dfs(i, g, f);
+	krep(i,0,n) if (comp[i] < 0) dfs(i, g, f);
 }

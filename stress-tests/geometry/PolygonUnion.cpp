@@ -4,7 +4,7 @@
 typedef long long ll;
 using namespace std;
 
-#define rep(i, a, b) for (int i = a; i < (b); ++i)
+#define krep(i, a, b) for (int i = a; i < (b); ++i)
 #define all(x) begin(x), end(x)
 #define sz(x) (int)(x).size()
 typedef long long ll;
@@ -199,7 +199,7 @@ void testRandom(int n, int numPts = 10, int lim = 5, bool brute = false) {
 	auto val3 = blackhorse::polygon_union(polygons2.data(), sz(polygons2));
 	auto val4 = lovelive::polygon_union(polygons3.data(), sz(polygons3));
 	if (abs(val1 - val3) > 1e-8 || abs(val1 - val4) > 1e-8) {
-		rep(i, 0, n) {
+		krep(i, 0, n) {
 			for (auto &x : polygons[i]) {
 				cout << x << ' ';
 			}

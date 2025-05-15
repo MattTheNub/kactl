@@ -34,7 +34,7 @@ int hopcroftKarp(vector<vi>& g, vi& btoa) {
 		/// Find the starting nodes for BFS (i.e. layer 0).
 		cur.clear();
 		for (int a : btoa) if(a != -1) A[a] = -1;
-		rep(a,0,sz(g)) if(A[a] == 0) cur.push_back(a);
+		krep(a,0,sz(g)) if(A[a] == 0) cur.push_back(a);
 		/// Find all layers using bfs.
 		for (int lay = 1;; lay++) {
 			bool islast = 0;
@@ -55,7 +55,7 @@ int hopcroftKarp(vector<vi>& g, vi& btoa) {
 			cur.swap(next);
 		}
 		/// Use DFS to scan for augmenting paths.
-		rep(a,0,sz(g))
+		krep(a,0,sz(g))
 			res += dfs(a, 0, g, btoa, A, B);
 	}
 }

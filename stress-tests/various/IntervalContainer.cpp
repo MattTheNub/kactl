@@ -6,7 +6,7 @@ int main2() {
 	const int its = 4000000;
 	set<pii> iv;
 	unsigned r = 1;
-	rep(it,0,its) {
+	krep(it,0,its) {
 		r *= 12391231;
 		r += 12312;
 		int m = (r >> 1) % its;
@@ -22,7 +22,7 @@ int main() {
 	set<pii> iv;
 	vi line(N);
 	ll sum = 0, sumit = 0;
-	rep(it,0,iters) {
+	krep(it,0,iters) {
 		int r = rand() % 100;
 		if (r < 4) {
 			iv.clear();
@@ -33,14 +33,14 @@ int main() {
 			int r = rand() % (N+1);
 			if (l > r) swap(l, r);
 			addInterval(iv, l, r);
-			rep(i,l,r) line[i] = 1;
+			krep(i,l,r) line[i] = 1;
 		}
 		else {
 			int l = rand() % (N+1);
 			int r = rand() % (N+1);
 			if (l > r) swap(l, r);
 			removeInterval(iv, l, r);
-			rep(i,l,r) line[i] = 0;
+			krep(i,l,r) line[i] = 0;
 		}
 		int last = -1;
 		int ct = 0;
@@ -48,11 +48,11 @@ int main() {
 			assert(0 <= pa.first && pa.second <= N);
 			assert(pa.first < pa.second);
 			assert(last < pa.first);
-			rep(i,pa.first,pa.second) assert(line[i]);
+			krep(i,pa.first,pa.second) assert(line[i]);
 			last = pa.second;
 			ct += pa.second - pa.first;
 		}
-		rep(i,0,N) ct -= line[i];
+		krep(i,0,N) ct -= line[i];
 		assert(ct == 0);
 		sum += sz(iv);
 		++sumit;

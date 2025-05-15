@@ -5,7 +5,7 @@ vector<pii> randomSimpleGraphAsEdgeList(int n, int m) {
 	assert(m <= (ll)n * (n - 1) / 2);
 	vector<pii> ed;
 	if (m > (ll)n * n / 3) {
-		rep(i,0,n) rep(j,0,i) {
+		krep(i,0,n) krep(j,0,i) {
 			int a = i, b = j;
 			if (randBool()) swap(a, b);
 			ed.push_back({a,b});
@@ -14,7 +14,7 @@ vector<pii> randomSimpleGraphAsEdgeList(int n, int m) {
 		ed.erase(ed.begin() + m, ed.end());
 	} else {
 		set<pii> seen;
-		rep(i,0,m) {
+		krep(i,0,m) {
 			int a = randRange(n);
 			int b = randRange(n);
 			if (a == b) continue;
@@ -41,7 +41,7 @@ vector<pii> randomRegularGraphAsEdgeList(int n, int k) {
 	assert(k < n);
 	vector<pii> ed;
 	vi cands(n), rem(n, k);
-	rep(i,0,n) cands[i] = i;
+	krep(i,0,n) cands[i] = i;
 	int failures = 0;
 	set<pii> seen;
 	while (!cands.empty()) {

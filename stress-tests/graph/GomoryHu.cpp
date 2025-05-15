@@ -12,7 +12,7 @@ void test(int N, int mxFlow, int iters) {
 		int m = rand()%(N*N);
 		vector<array<ll, 3>> edges;
 		vector<vi> mat(n, vi(n));
-		rep(it,0,m) {
+		krep(it,0,m) {
 			int i = rand() % n;
 			int j = rand() % n;
 			if (i == j) continue;
@@ -63,7 +63,7 @@ void test(int N, int mxFlow, int iters) {
 				inCut[x] = 1;
 			}
 			int cutw = 0;
-			rep(i,0,n) rep(j,0,n) if (inCut[i] && !inCut[j]) {
+			krep(i,0,n) krep(j,0,n) if (inCut[i] && !inCut[j]) {
 				cutw += mat[i][j];
 			}
 			assert(pa.first == cutw);

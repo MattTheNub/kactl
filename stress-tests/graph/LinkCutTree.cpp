@@ -6,12 +6,12 @@
 int main() {
 	srand(2);
 	LinkCut lczero(0);
-	rep(it,0,10000) {
+	krep(it,0,10000) {
 		int N = rand() % 20 + 1;
 		LinkCut lc(N);
 		UF uf(N);
 		vector<pii> edges;
-		rep(it2,0,1000) {
+		krep(it2,0,1000) {
 			int v = (rand() >> 4) & 3;
 			if (v == 0 && !edges.empty()) { // remove
 				int r = (rand() >> 4) % sz(edges);

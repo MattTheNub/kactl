@@ -28,7 +28,7 @@ int exampleFunction1(vi mice, int* cats, int catsCount) {
 	/// This is a stupid comment that will be removed.
 	int sum = 0;
 
-	rep(i, 1, catsCount) {
+	krep(i, 1, catsCount) {
 		// This comment will be kept!
 		for (auto it : mice) {
 			/// This will be removed.

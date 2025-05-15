@@ -15,13 +15,13 @@ vector<vi> treeJump(vi& P){
 	int on = 1, d = 1;
 	while(on < sz(P)) on *= 2, d++;
 	vector<vi> jmp(d, P);
-	rep(i,1,d) rep(j,0,sz(P))
+	krep(i,1,d) krep(j,0,sz(P))
 		jmp[i][j] = jmp[i-1][jmp[i-1][j]];
 	return jmp;
 }
 
 int jmp(vector<vi>& tbl, int nod, int steps){
-	rep(i,0,sz(tbl))
+	krep(i,0,sz(tbl))
 		if(steps&(1<<i)) nod = tbl[i][nod];
 	return nod;
 }

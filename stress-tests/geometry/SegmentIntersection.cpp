@@ -36,7 +36,7 @@ bool eq(P a, P b) {
 	return (a-b).dist()<1e-8;
 }
 int main() {
-	rep(t,0,1000000) {
+	krep(t,0,1000000) {
 		const int GRID=6;
 		P a(rand()%GRID, rand()%GRID), b(rand()%GRID, rand()%GRID), c(rand()%GRID, rand()%GRID), d(rand()%GRID, rand()%GRID);
 		P tmp1, tmp2;

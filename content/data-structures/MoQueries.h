@@ -48,7 +48,7 @@ vi moTree(vector<array<int, 2>> Q, vector<vi>& ed, int root=0){
 #define K(x) pii(I[x[0]] / blk, I[x[1]] ^ -(I[x[0]] / blk & 1))
 	iota(all(s), 0);
 	sort(all(s), [&](int s, int t){ return K(Q[s]) < K(Q[t]); });
-	for (int qi : s) rep(end,0,2) {
+	for (int qi : s) krep(end,0,2) {
 		int &a = pos[end], b = Q[qi][end], i = 0;
 #define step(c) { if (in[c]) { del(a, end); in[a] = 0; } \
                   else { add(c, end); in[c] = 1; } a = c; }

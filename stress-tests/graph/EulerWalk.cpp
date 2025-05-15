@@ -21,10 +21,10 @@ bool hasEulerWalk(vector<vector<pii>>& ed, int start, bool undir, bool cycle) {
 	int odd = 0;
 	bool anyEdges = false;
 	vi nins(n);
-	rep(i,0,n) {
+	krep(i,0,n) {
 		for(auto &x: ed[i]) nins[x.first]++;
 	}
-	rep(i,0,n) {
+	krep(i,0,n) {
 		if (!ed[i].empty()) anyEdges = true;
 		if (undir) {
 			assert(sz(ed[i]) == nins[i]);
@@ -42,9 +42,9 @@ bool hasEulerWalk(vector<vector<pii>>& ed, int start, bool undir, bool cycle) {
 	if (odd > !cycle) { return false; }
 	if (ed[start].empty() && anyEdges) { return false; }
 	UF uf(n);
-	rep(i,0,n) for(auto &x: ed[i]) uf.join(i, x.first);
+	krep(i,0,n) for(auto &x: ed[i]) uf.join(i, x.first);
 	int comp = 0;
-	rep(i,0,n) if (uf.find(i) == i) {
+	krep(i,0,n) if (uf.find(i) == i) {
 		if (ed[i].empty()) continue;
 		comp++;
 	}
@@ -68,15 +68,15 @@ vi eulerCycle(vector<vector<pii>>& gr, int nedges, int src=0) {
 }
 
 int main() {
-	rep(cycle,0,2) rep(undir,0,2) {
-		rep(it,0,10000) {
+	krep(cycle,0,2) krep(undir,0,2) {
+		krep(it,0,10000) {
 			int n = rand() % 10 + 1;
 			int m = rand() % 20;
 			int start = rand() % n;
 			vector<vector<pii>> ed(n);
 			map<pii, vi> allEds;
 			vector<pii> theEdges;
-			rep(i,0,m) {
+			krep(i,0,m) {
 				int a = rand() % n;
 				int b = rand() % n;
 				ed[a].emplace_back(b, i);
@@ -91,7 +91,7 @@ int main() {
 			vi res = cycle ? eulerCycle(ed, m, start) : eulerWalk(ed, m, start);
 			if (0) {
 				cout << n << ' ' << m << ' ' << start << ' ' << undir << ' ' << cycle << endl;
-				rep(i,0,n) {
+				krep(i,0,n) {
 					for(auto &x: ed[i]) cout << x.first << ' ';
 					cout << endl;
 				}
@@ -110,7 +110,7 @@ int main() {
 				if (cycle) assert(res.back() == start);
 				int cur = start;
 				vi seenEdge(m);
-				rep(i,1,sz(res)) {
+				krep(i,1,sz(res)) {
 					int x = res[i];
 					for(auto &eid: allEds[pii(cur, x)]) {
 						if (!seenEdge[eid]) {

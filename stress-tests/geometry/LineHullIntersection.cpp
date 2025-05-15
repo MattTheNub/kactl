@@ -65,12 +65,12 @@ int segmentIntersection(const P& s1, const P& e1,
 
 int main() {
 	srand(2);
-	rep(it,0,1000000) {
+	krep(it,0,1000000) {
 		// cout<<endl;
 		// cout<<"it: "<<it<<endl;
 		int N = rand() % 15;
 		vector<P> ps2;
-		rep(i,0,N) ps2.emplace_back(rand() % 20 - 10, rand() % 20 - 10);
+		krep(i,0,N) ps2.emplace_back(rand() % 20 - 10, rand() % 20 - 10);
 		vector<P> ps = convexHull(ps2);
 		if (ps.empty()) continue;
 		P p{rand() % 20 - 10, rand() % 20 - 10};
@@ -98,7 +98,7 @@ int main() {
 
 		int any = 0, gen = 0, corner = -1, waspar = 0;
 		vector<pair<Point<double>, int>> hits;
-		rep(iter,0,2) rep(i,0,N) {
+		krep(iter,0,2) krep(i,0,N) {
 			Point<double> r1, r2;
 			int j = (i+1) % N;
 			int qu = segmentIntersection(farp, farq, ps[i], ps[j], r1, r2);

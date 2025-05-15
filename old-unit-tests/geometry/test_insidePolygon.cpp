@@ -20,14 +20,14 @@ public:
 		while (in >> n) {
 			vector<Point<int> > poly(n);
 			stringstream ss;
-			rep(i,0,n) {
+			krep(i,0,n) {
 				in >> poly[i];
 				ss << poly[i] << " ";
 			}
 			int q;
 			in >> q;
 			Point<int> p;
-			rep(i,0,q) {
+			krep(i,0,q) {
 				in >> p;
 				polys.push_back(poly);
 				strings.push_back(ss.str());
@@ -38,7 +38,7 @@ public:
 
 		ifstream out("insidePolygon.out");
 		answers.resize(points.size());
-		rep(i,0,answers.size()) {
+		krep(i,0,answers.size()) {
 			out >> answers[i];
 		}
 	}

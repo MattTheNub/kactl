@@ -20,7 +20,7 @@ int main() {
 		auto res = circleLine(P(4, 4), 1, P(0,  0), P(5, 0));
 		assert(res.size() == 0);
 	}
-	rep(it,0,100000) {
+	krep(it,0,100000) {
 		P a = randIntPt(5);
 		P b = randIntPt(5);
 		P c = randIntPt(5);

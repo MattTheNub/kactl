@@ -13,7 +13,7 @@ struct Poly {
 		return val;
 	}
 	void diff() {
-		rep(i,1,sz(a)) a[i-1] = i*a[i];
+		krep(i,1,sz(a)) a[i-1] = i*a[i];
 		a.pop_back();
 	}
 	void divroot(double x0) {

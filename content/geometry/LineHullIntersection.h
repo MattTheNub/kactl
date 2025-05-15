@@ -43,7 +43,7 @@ array<int, 2> lineHull(P a, P b, vector<P>& poly) {
 	if (cmpL(endA) < 0 || cmpL(endB) > 0)
 		return {-1, -1};
 	array<int, 2> res;
-	rep(i,0,2) {
+	krep(i,0,2) {
 		int lo = endB, hi = endA, n = sz(poly);
 		while ((lo + 1) % n != hi) {
 			int m = ((lo + hi + (lo < hi ? 0 : n)) / 2) % n;

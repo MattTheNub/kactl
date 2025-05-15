@@ -49,5 +49,5 @@ int dfs(int at, int par, F& f) {
 template<class F>
 void bicomps(F f) {
 	num.assign(sz(ed), 0);
-	rep(i,0,sz(ed)) if (!num[i]) dfs(i, -1, f);
+	krep(i,0,sz(ed)) if (!num[i]) dfs(i, -1, f);
 }

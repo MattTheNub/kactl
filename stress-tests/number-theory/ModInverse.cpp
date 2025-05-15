@@ -13,7 +13,7 @@ bool isPrime(int x) {
 	return true;
 }
 int main() {
-	rep(it,1,1000) {
+	krep(it,1,1000) {
 		int mod = it, LIM=1000;
 		if (!isPrime(mod)) continue;
 		#include "../../content/number-theory/ModInverse.h"

@@ -31,7 +31,7 @@ vi eratosthenes() {
 		array<bool, S> block{};
 		for (auto &[p, idx] : cp)
 			for (int i=idx; i < S+L; idx = (i+=p)) block[i-L] = 1;
-		rep(i,0,min(S, R - L))
+		krep(i,0,min(S, R - L))
 			if (!block[i]) pr.push_back((L + i) * 2 + 1);
 	}
 	for (int i : pr) isPrime[i] = 1;
