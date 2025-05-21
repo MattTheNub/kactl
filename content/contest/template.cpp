@@ -22,6 +22,20 @@ inline auto per1(int l, int r) { return per(l, r + 1); }
 inline auto per1(int n) { return per(1, n + 1); }
 inline auto len = ranges::ssize;
 
+template <typename T>
+std::istream& operator >>(std::istream& input, std::pair <T, T> & data)
+{
+    input >> data.first >> data.second;
+    return input;
+}
+template <typename T>
+std::istream& operator >>(std::istream& input, std::vector<T>& data)
+{
+    for (T& x : data)
+        input >> x;
+    return input;
+}
+
 int main() {
 	cin.tie(0)->sync_with_stdio(0);
 	cin.exceptions(cin.failbit);
