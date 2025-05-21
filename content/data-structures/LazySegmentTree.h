@@ -1,5 +1,5 @@
 /**
- * Author: Simon Lindholm
+ * Author: JDUREI LZSEG RAAAAAAAAAAAAAAAAAAAAAa
  * Date: 2016-10-08
  * License: CC0
  * Source: me
