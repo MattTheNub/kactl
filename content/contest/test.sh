@@ -1,7 +1,7 @@
 echo starting > bin/out1.txt
 echo starting > bin/out2.txt
-EXE=${1:-main}
-C="$(1)correct"
+EXE=$1
+C="${1}correct"
 make $EXE
 make $C
 while diff -i bin/out1.txt bin/out2.txt; do

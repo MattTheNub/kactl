@@ -1,0 +1,2 @@
+export CXXFLAGS='-std=gnu++23 -g -Wall -Wextra -fsanitize=undefined,address'
+export CXXFLAGS='-std=gnu++23 -O2'
