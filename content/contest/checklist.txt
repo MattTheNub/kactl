@@ -1,6 +1,5 @@
 Template Typer Tasks:
-1. Type template.cpp
-2. Type baursakmake
-3. Open bash and run the first line of baursakmake
-4. Type run.sh and chmod +x run.sh
-5. Create bin/in.txt
+1. Type template.cpp, baursakmake, run.sh
+2. chmod +x run.sh
+3. Run the first line of baursakmake
+4. Create bin/in.txt

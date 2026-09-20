@@ -8,7 +8,7 @@ void gen(string& s, int at, int alpha, F f) {
 	if (at == sz(s)) f();
 	else {
 		krep(i,0,alpha) {
-			s[at] = (char)('A' + i);
+			s[at] = (char)('a' + i);
 			gen(s, at+1, alpha, f);
 		}
 	}
@@ -18,7 +18,7 @@ void test(const string& s) {
 	vector<string> pats;
 	string cur;
 	krep(i,0,sz(s)) {
-		if (s[i] == 'A') {
+		if (s[i] == 'a') {
 			pats.push_back(cur);
 			cur = "";
 		}
@@ -28,8 +28,20 @@ void test(const string& s) {
 	string hay = cur;
 	trav(x, pats) if (x.empty()) return;
 
-	AhoCorasick ac(pats);
-	vector<vi> positions = ac.findAll(pats, hay);
+	AhoCorasick ac;
+	vector<vi> ids(1);
+	krep(j,0,sz(pats)) {
+		int v = ac.insert(pats[j]);
+		ids.resize(sz(ac.N));
+		ids[v].push_back(j);
+	}
+	vector<vi> positions(sz(hay));
+	int v = 0;
+	krep(i,0,sz(hay)) {
+		v = ac.go(v, hay[i]);
+		for (int u = v; u; u = ac.next(u)) if (ac.N[u].end)
+			for (int j : ids[u]) positions[i - sz(pats[j]) + 1].push_back(j);
+	}
 
 	vi ord;
 	krep(i,0,sz(hay)) {

@@ -1,85 +1,62 @@
 /**
- * Author: Simon Lindholm
- * Date: 2015-02-18
+ * Author: Mateusz Klosin
+ * Date: 2026-09-19
  * License: CC0
- * Source: marian's (TC) code
- * Description: Aho-Corasick automaton, used for multiple pattern matching.
- * Initialize with AhoCorasick ac(patterns); the automaton start node will be at index 0.
- * find(word) returns for each position the index of the longest word that ends there, or -1 if none.
- * findAll($-$, word) finds all words (up to $N \sqrt N$ many if no duplicate patterns)
- * that start at each position (shortest first).
- * Duplicate patterns are allowed; empty patterns are not.
- * To find the longest words that start at each position, reverse all input.
- * For large alphabets, split each symbol into chunks, with sentinel bits for symbol boundaries.
- * Time: construction takes $O(26N)$, where $N =$ sum of length of patterns.
- * find(x) is $O(N)$, where N = length of x. findAll is $O(NM)$.
+ * Description: Suffix link automaton trie for Aho-Corasick. Use {\tt go} to
+ * traverse the automaton. {\tt for (int v = u; v; v = trie.next(v))} can be
+ * used to iterate over all pattern matches at the current index.
+ * {\tt go}, {\tt next}, and {\tt get\_link} are amortized $\mathcal O(1)$.
+ * Time: $O(|\Sigma|N)$
  * Status: stress-tested
  */
 #pragma once
 
 struct AhoCorasick {
-	enum {alpha = 26, first = 'A'}; // change this!
+	enum {alpha = 26, first = 'a'}; // change this!
 	struct Node {
-		// (nmatches is optional)
-		int back, next[alpha], start = -1, end = -1, nmatches = 0;
-		Node(int v) { memset(next, v, sizeof(next)); }
+		int par, link = -1, out = -1, to[alpha]{}, memo[alpha];
+		char ch;
+		bool end = false;
+		Node(int p = -1, char c = 0) : par(p), ch(c) {
+			fill(memo, memo + alpha, -1);
+		}
 	};
-	vector<Node> N;
-	vi backp;
-	void insert(string& s, int j) {
-		assert(!s.empty());
-		int n = 0;
-		for (char c : s) {
-			int& m = N[n].next[c - first];
-			if (m == -1) { n = m = sz(N); N.emplace_back(-1); }
-			else n = m;
-		}
-		if (N[n].end == -1) N[n].start = j;
-		backp.push_back(N[n].end);
-		N[n].end = j;
-		N[n].nmatches++;
-	}
-	AhoCorasick(vector<string>& pat) : N(1, -1) {
-		krep(i,0,sz(pat)) insert(pat[i], i);
-		N[0].back = sz(N);
-		N.emplace_back(0);
+	vector<Node> N{Node()};
 
-		queue<int> q;
-		for (q.push(0); !q.empty(); q.pop()) {
-			int n = q.front(), prev = N[n].back;
-			krep(i,0,alpha) {
-				int &ed = N[n].next[i], y = N[prev].next[i];
-				if (ed == -1) ed = y;
-				else {
-					N[ed].back = y;
-					(N[ed].end == -1 ? N[ed].end : backp[N[ed].start])
-						= N[y].end;
-					N[ed].nmatches += N[y].nmatches;
-					q.push(ed);
-				}
+	// insert s into the trie and return its last node
+	int insert(string s) {
+		int v = 0;
+		for (char c : s) {
+			int i = c - first, u = N[v].to[i];
+			if (!u) {
+				u = sz(N);
+				N[v].to[i] = u;
+				N.emplace_back(v, c);
 			}
+			v = u;
 		}
+		N[v].end = true;
+		return v;
 	}
-	vi find(string word) {
-		int n = 0;
-		vi res; // ll count = 0;
-		for (char c : word) {
-			n = N[n].next[c - first];
-			res.push_back(N[n].end);
-			// count += N[n].nmatches;
-		}
-		return res;
+	// suffix link of node v
+	int get_link(int v) {
+		int& l = N[v].link;
+		if (l == -1) l = v && N[v].par ? go(get_link(N[v].par), N[v].ch) : 0;
+		return l;
 	}
-	vector<vi> findAll(vector<string>& pat, string word) {
-		vi r = find(word);
-		vector<vi> res(sz(word));
-		krep(i,0,sz(word)) {
-			int ind = r[i];
-			while (ind != -1) {
-				res[i - sz(pat[ind]) + 1].push_back(ind);
-				ind = backp[ind];
-			}
+	// from node v, follow the transition for character c
+	int go(int v, char c) {
+		int i = c - first, &g = N[v].memo[i];
+		if (g == -1) g = N[v].to[i] ? N[v].to[i] : v ? go(get_link(v), c) : 0;
+		return g;
+	}
+	// longest proper suffix of node v among all patterns
+	int next(int v) {
+		int& u = N[v].out;
+		if (u == -1) {
+			int l = get_link(v);
+			u = !l || N[l].end ? l : next(l);
 		}
-		return res;
+		return u;
 	}
 };
