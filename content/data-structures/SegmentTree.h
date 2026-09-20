@@ -1,12 +1,13 @@
 /**
- * Author: Lucian Bicsi
+ * Author: Joe Durie
  * Date: 2017-10-31
- * License: CC0
- * Source: folklore
- * Description: Zero-indexed max-tree. Bounds are inclusive to the left and exclusive to the right.
- * Can be changed by modifying T, f and unit.
+ * License: unknown
+ * Source: jdurie
+ * Description: Zero-indexed sum-tree with point assignment and range sum queries.
+ * Bounds are inclusive to the left and exclusive to the right.
+ * Can be changed by modifying T, f and id.
  * Time: O(\log N)
- * Status: stress-tested
+ * Status: unknown
  */
 #pragma once
 
