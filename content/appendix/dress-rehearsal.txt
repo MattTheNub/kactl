@@ -1,0 +1,33 @@
+- Keyboard layouts
+- template.cpp
+- samps.sh
+- Java
+- Python
+- Printing
+- Sending clarifications
+- Documentation
+- Submit script
+- Whitespace/case insensitivity in output
+- Return values from main
+- Printing to stderr
+- Source code limit
+- Is it possible to submit and read from non-source files?
+- SIMD support on machine resp. judge
+- How long do array accesses take on machine resp. judge?
+- How long do small operations take on machine resp. judge?
+- Does ASan work?
+- All judge errors:
+	- Accepted
+	- WA
+	- Presentation Error
+	- RTE (what results in RTE?)
+	- TLE
+	- Memory limit, both stack and heap
+	- Output limit
+	- Illegal function
+	- Compile error
+	- Compile time limit exceeded
+	- Compile memory limit exceeded
+	- Too late
+- Listing all available binaries
+	echo $PATH | tr ':' ' ' | xargs ls | grep -v / | sort | uniq | tr 'char`\n' ' ' > path.txt
