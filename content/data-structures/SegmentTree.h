@@ -7,16 +7,18 @@
  * Bounds are inclusive on both ends: [l, r]. Empty if l > r.
  * Can be changed by modifying T, f and id.
  * Time: O(\log N)
+ * Usage: seg tree(n); tree.modify(i, value); auto result = tree.query(l, r);
  * Status: unknown
  */
 #pragma once
 
-namespace seg {
+struct seg {
 	using T = ll;
 	T id=0;
 	T f(T a, T b) {return a+b;}
-	T t[2 * NN];
-	ll n=NN;  // array size
+	ll n;
+	vector<T> t;
+	seg(ll n) : n(n), t(2*n, id) {}
 	void modify(ll p, T value) {  // set value at position p
 		for (p+=n, t[p] = value; p /= 2;) t[p] = f(t[2*p], t[2*p+1]);
 	}
@@ -28,4 +30,4 @@ namespace seg {
 		}
 		return f(resl, resr);
 	}
-}
+};
