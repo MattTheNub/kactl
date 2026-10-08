@@ -6,4 +6,7 @@ ModInverse.h
 ModSqrt.h
 Hashing-codeforces.h
 NumberTheoreticTransform.h
+PolyInv.h
+Newton.h
+BostanMori.h
 MoQueries.h
