@@ -27,7 +27,7 @@ int main() {
 		krep(i,0,n+1) krep(j,i,n+1) {
 			string sub = s.substr(i, j - i);
 			ull hash = (ull) hashString(sub);
-			assert((ull) hi.hashInterval(i, j) == hash);
+			assert((ull) hi.hashInterval(i, j-1) == hash);
 			hashes.insert(hash);
 			strs.insert(sub);
 		}
@@ -37,7 +37,7 @@ int main() {
 			auto ve = getHashes(s, le);
 			assert(sz(ve) == n-le+1);
 			krep(i,0,n-le+1) {
-				assert((ull) ve[i] == (ull) hi.hashInterval(i, i + le));
+				assert((ull) ve[i] == (ull) hi.hashInterval(i, i + le-1));
 			}
 		}
 

@@ -24,6 +24,7 @@ template<class F> void each(Node* n, F f) {
 	if (n) { each(n->l, f); f(n->val); each(n->r, f); }
 }
 
+// Split by count: first k elements and the rest (k is not an endpoint).
 pair<Node*, Node*> split(Node* n, int k) {
 	if (!n) return {};
 	if (cnt(n->l) >= k) { // "n->val >= k" for lower_bound(k)
@@ -56,10 +57,10 @@ Node* ins(Node* t, Node* n, int pos) {
 	return merge(merge(l, n), r);
 }
 
-// Example application: move the range [l, r) to index k
+// Move [l, r] before original index k (k <= l or k > r).
 void move(Node*& t, int l, int r, int k) {
 	Node *a, *b, *c;
-	tie(a,b) = split(t, l); tie(b,c) = split(b, r - l);
+	tie(a,b) = split(t, l); tie(b,c) = split(b, r - l + 1);
 	if (k <= l) t = merge(ins(a, b, k), c);
-	else t = merge(a, ins(c, b, k - r));
+	else t = merge(a, ins(c, b, k - r - 1));
 }

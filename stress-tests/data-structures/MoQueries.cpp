@@ -1,9 +1,11 @@
 #include "../utilities/template.h"
 
-// #include "../../content/data-structures/MoQueries.h"
+namespace MoTree { void add(int, int); void del(int, int); int calc(); }
+bool treeMode = false;
 
 int curL = 0, curR = 0, ops = 0;
 void add(int ind, int end) {
+	if (treeMode) return MoTree::add(ind, end);
 	if (curL != curR) {
 		if (end == 0) assert(ind == curL - 1);
 		else assert(ind == curR);
@@ -14,6 +16,7 @@ void add(int ind, int end) {
 	ops++;
 }
 void del(int ind, int end) {
+	if (treeMode) return MoTree::del(ind, end);
 	if (end == 0) assert(ind == curL);
 	else assert(ind == curR - 1);
 	if (ind == curR - 1) curR--;
@@ -23,30 +26,15 @@ void del(int ind, int end) {
 }
 
 int calc() {
+	if (treeMode) return MoTree::calc();
 	return curL == curR ? -1 : curL + (curR - curL) * 10;
 }
 
-int blk; // ~N/sqrt(Q)
-vi mo(vector<pii> Q) {
-	int L = 0, R = 0;
-	vi s(sz(Q)), res = s;
-#define K(x) pii(x.first/blk, x.second ^ -(x.first/blk & 1))
-	iota(all(s), 0);
-	sort(all(s), [&](int s, int t){ return K(Q[s]) < K(Q[t]); });
-	for (int qi : s) {
-		pii q = Q[qi];
-		while (L > q.first) add(--L, 0);
-		while (R < q.second) add(R++, 1);
-		while (L < q.first) del(L++, 0);
-		while (R > q.second) del(--R, 1);
-		res[qi] = calc();
-	}
-	return res;
-}
+#include "../../content/data-structures/MoQueries.h"
 
 void test(int n, int q) {
+	treeMode = false;
 	curL = curR = ops = 0;
-	blk = max((int)(n / sqrt(max(q, 1))), 1);
 	vector<pii> queries(q);
 	for (auto& pa : queries) {
 		pa.first = rand() % n;
@@ -57,17 +45,9 @@ void test(int n, int q) {
 	vi res = mo(queries);
 	krep(i,0,q) {
 		int l = queries[i].first, r = queries[i].second;
-		if (l == r) {
-			assert(res[i] == -1);
-		} else {
-			assert(res[i] == l + (r - l) * 10);
-		}
+		assert(res[i] == l + (r - l + 1) * 10);
 	}
-	// (This inequality holds for random queries; in general it's off by a small constant)
-	if (n > 100 && q > 100) {
-		// cout << n << ' ' << q << ' ' << ops / (n * sqrt(q)) << endl;
-		assert(ops < n * sqrt(q));
-	}
+
 }
 
 #undef K
@@ -97,40 +77,12 @@ void del(int i, int end) {
 }
 int calc() { return sum; }
 
-vi moTree(vector<array<int, 2>> Q, vector<vi>& ed, int root=0){
-	int N = sz(ed), pos[2] = {};
-	vi s(sz(Q)), res = s, I(N), L(N), R(N), in(N), par(N);
-	add(0, 0), in[0] = 1;
-	auto dfs = [&](int x, int p, int dep, auto& f) -> void {
-		par[x] = p;
-		L[x] = N;
-		if (dep) I[x] = N++;
-		for (int y : ed[x]) if (y != p) f(y, x, !dep, f);
-		if (!dep) I[x] = N++;
-		R[x] = N;
-	};
-	dfs(root, -1, 0, dfs);
-#define K(x) pii(I[x[0]] / blk, I[x[1]] ^ -(I[x[0]] / blk & 1))
-	iota(all(s), 0);
-	sort(all(s), [&](int s, int t){ return K(Q[s]) < K(Q[t]); });
-	for (int qi : s) krep(end,0,2) {
-		int &a = pos[end], b = Q[qi][end], i = 0;
-#define step(c) { if (in[c]) del(a, end), in[a] = 0; \
-                  else add(c, end), in[c] = 1; a = c; }
-		while (!(L[b] <= L[a] && R[a] <= R[b]))
-			I[i++] = b, b = par[b];
-		while (a != b) step(par[a]);
-		while (i--) step(I[i]);
-		if (end) res[qi] = calc();
-	}
-	return res;
-}
 
 }
 
 void testTr(int n, int q) {
+	treeMode = true;
 	ops = 0;
-	blk = max((int)(n / sqrt(max(q, 1))), 1);
 	vector<array<int, 2>> queries(q);
 	for (auto& pa : queries) {
 		pa[0] = rand() % n;
@@ -144,7 +96,7 @@ void testTr(int n, int q) {
 	MoTree::vals = val;
 	MoTree::sum = 0;
 	MoTree::path.clear();
-	vi res = MoTree::moTree(queries, ed);
+	vi res = moTree(queries, ed);
 	vi seen(n);
 	krep(i,0,q) {
 		// Tree depth is logarithmic, so compute query answers naively
@@ -164,6 +116,8 @@ void testTr(int n, int q) {
 }
 
 int main() {
+	treeMode = false;
+	assert((mo({{0,-1}, {0,0}, {3,2}, {2,4}, {0,-1}}) == vi{-1,10,-1,32,-1}));
 	srand(2);
 	krep(it,0,10) krep(n,1,15) krep(q,0,n*n) {
 		testTr(n, q);

@@ -19,7 +19,7 @@ int main() {
 		krep(i,0,n+1) krep(j,i,n+1) {
 			string sub = s.substr(i, j - i);
 			ull hash = hashString(sub).get();
-			assert(hi.hashInterval(i, j).get() == hash);
+			assert(hi.hashInterval(i, j-1).get() == hash);
 			hashes.insert(hash);
 			strs.insert(sub);
 		}
@@ -29,7 +29,7 @@ int main() {
 			auto ve = getHashes(s, le);
 			assert(sz(ve) == n-le+1);
 			krep(i,0,n-le+1) {
-				assert(ve[i].get() == hi.hashInterval(i, i + le).get());
+				assert(ve[i].get() == hi.hashInterval(i, i + le-1).get());
 			}
 		}
 

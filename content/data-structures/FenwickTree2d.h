@@ -3,7 +3,7 @@
  * Date: 2017-05-11
  * License: CC0
  * Source: folklore
- * Description: Computes sums a[i,j] for all i<I, j<J, and increases single elements a[i,j].
+ * Description: Computes sums a[i,j] for all i<=I, j<=J, and increases single elements a[i,j].
  *  Requires that the elements to be updated are known in advance (call fakeUpdate() before init()).
  * Time: $O(\log^2 N)$. (Use persistent segment trees for $O(\log N)$.)
  * Status: stress-tested
@@ -27,10 +27,12 @@ struct FT2 {
 		for (; x < sz(ys); x |= x + 1)
 			ft[x].update(ind(x, y), dif);
 	}
-	ll query(int x, int y) {
+	ll query(int x, int y) { // inclusive upper bounds; x = -1 is empty
 		ll sum = 0;
-		for (; x; x &= x - 1)
-			sum += ft[x-1].query(ind(x-1, y));
+		for (++x; x; x &= x - 1) {
+			int p = (int)(upper_bound(all(ys[x-1]), y) - ys[x-1].begin());
+			sum += ft[x-1].query(p-1);
+		}
 		return sum;
 	}
 };

@@ -12,6 +12,14 @@ int main() {
 			fw.update(i, v);
 			t[i] += v;
 		}
+		assert(fw.query(-1) == 0);
+		ll prefix = 0;
+		krep(i,0,N) {
+			prefix += t[i];
+			assert(fw.query(i) == prefix);
+			krep(j,0,i+1)
+				assert(fw.query(i) - fw.query(j-1) == accumulate(t.begin()+j, t.begin()+i+1, 0LL));
+		}
 		int q = rand() % 20;
 		int ind = fw.lower_bound(q);
 		int res = -1, sum = 0;

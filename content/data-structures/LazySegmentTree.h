@@ -3,8 +3,8 @@
  * Date: 2016-10-08
  * License: CC0
  * Source: me
- * Description: Zero-indexed iterative lazy segment tree on half-open intervals
- * [l, r). Customize f, g, h, and the identities for the desired operations.
+ * Description: Zero-indexed iterative lazy segment tree on inclusive intervals
+ * [l, r]. Customize f, g, h, and the identities for the desired operations.
  * Time: O(\log N).
  * Usage: lztree::modify(i, value); lztree::modify(l, r, update); auto result = lztree::query(l, r);
  * Status: jdurie says it's probably correct but he's still not sure
@@ -50,9 +50,9 @@ namespace lztree {
 		while(p > 1) calc(p /= 2);
 	}
 	void modify(ll l, ll r, U v) {
-		push(l), push(r - 1);
+		push(l), push(r);
 		bool cl = false, cr = false;
-		for(l += N, r += N; l < r; l /= 2, r /= 2) {
+		for(l += N, r += N + 1; l < r; l /= 2, r /= 2) {
 			if(cl) calc(l - 1);
 			if(cr) calc(r);
 			if(l & 1) apply(l++, v), cl = true;
@@ -64,9 +64,9 @@ namespace lztree {
 		}
 	}
 	T query(ll l, ll r) {
-		push(l), push(r - 1);
+		push(l), push(r);
 		T resl = idT, resr = idT;
-		for(l += N, r += N; l < r; l /= 2, r /= 2) {
+		for(l += N, r += N + 1; l < r; l /= 2, r /= 2) {
 			if(l & 1) resl = f(resl, t[l++]);
 			if(r & 1) resr = f(t[--r], resr);
 		}

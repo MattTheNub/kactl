@@ -4,7 +4,7 @@
  * License: unknown
  * Source: jdurie
  * Description: Zero-indexed sum-tree with point assignment and range sum queries.
- * Bounds are inclusive to the left and exclusive to the right.
+ * Bounds are inclusive on both ends: [l, r]. Empty if l > r.
  * Can be changed by modifying T, f and id.
  * Time: O(\log N)
  * Status: unknown
@@ -20,9 +20,9 @@ namespace seg {
 	void modify(ll p, T value) {  // set value at position p
 		for (p+=n, t[p] = value; p /= 2;) t[p] = f(t[2*p], t[2*p+1]);
 	}
-	T query(ll l, ll r) { // fold f on interval [l, r)
+	T query(ll l, ll r) { // fold f on interval [l, r]
 		T resl=id, resr=id;
-		for (l += n, r += n; l < r; l /= 2, r /= 2) {
+		for (l += n, r += n + 1; l < r; l /= 2, r /= 2) {
 			if (l&1) resl = f(resl, t[l++]);
 			if (r&1) resr = f(t[--r], resr);
 		}

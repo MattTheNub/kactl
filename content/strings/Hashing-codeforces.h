@@ -35,8 +35,8 @@ struct HashInterval {
 			ha[i+1] = ha[i] * C + str[i],
 			pw[i+1] = pw[i] * C;
 	}
-	H hashInterval(int a, int b) { // hash [a, b)
-		return ha[b] - ha[a] * pw[b - a];
+	H hashInterval(int a, int b) { // hash [a, b]
+		return ha[b+1] - ha[a] * pw[b - a + 1];
 	}
 };
 

@@ -84,7 +84,7 @@ void testAgainstOld(int n, int iters, int queries) {
 		}
 		HLD<false> hld(tree1);
 		old::HLD hld2(tree2);
-		hld.tree->set(0, n, 0);
+		hld.tree->set(0, n-1, 0);
 		for (int itr = 0; itr < queries; itr++) {
 			if (rand() % 2) {
 				int node = rand() % n;
@@ -109,7 +109,7 @@ void testAgainstBrute(int n, int iters, int queries) {
 		}
 		HLD<false> hld(tree1);
 		bruteforce hld2(tree1);
-		hld.tree->set(0, n, 0);
+		hld.tree->set(0, n-1, 0);
 		for (int itr = 0; itr < queries; itr++) {
 			int rng = rand() % 3;
 			if (rng == 0) {
@@ -132,7 +132,40 @@ void testAgainstBrute(int n, int iters, int queries) {
 	}
 
 }
+void testEdges() {
+	mt19937 rng(7);
+	krep(n,1,25) {
+		vi par(n, -1), depth(n), value(n);
+		vector<vi> adj(n);
+		krep(v,1,n) {
+			par[v] = int(rng()%v); depth[v] = depth[par[v]]+1;
+			adj[v].push_back(par[v]); adj[par[v]].push_back(v);
+		}
+		HLD<true> hld(adj);
+		hld.tree->set(0, n-1, 0);
+		krep(it,0,1000) {
+			int u = int(rng()%n), v = int(rng()%n), a = u, b = v;
+			vi path;
+			while (a != b) {
+				if (depth[a] < depth[b]) swap(a,b);
+				path.push_back(a); a = par[a];
+			}
+			int delta = int(rng()%21)-10, expected = -inf;
+			hld.modifyPath(u,v,delta);
+			for (int x : path) value[x] += delta, expected = max(expected,value[x]);
+			assert(hld.queryPath(u,v) == expected);
+			int sub = int(rng()%n); expected = -inf;
+			krep(x,1,n) {
+				int p = par[x];
+				while (p != -1 && p != sub) p = par[p];
+				if (p == sub) expected = max(expected,value[x]);
+			}
+			assert(hld.querySubtree(sub) == expected);
+		}
+	}
+}
 int main() {
+	testEdges();
 	srand(2);
 	testAgainstBrute(5, 1000, 10000);
 	testAgainstBrute(1000, 100, 100);

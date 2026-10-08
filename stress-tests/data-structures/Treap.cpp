@@ -57,7 +57,7 @@ int main() {
 		int k = ra() % 11;
 		if (i < k && k < j) continue;
 
-		move(n, i, j, k);
+		move(n, i, j-1, k);
 		// cerr << i << ' ' << j << ' ' << k << endl;
 
 		int nk = (k >= j ? k - (j - i) : k);

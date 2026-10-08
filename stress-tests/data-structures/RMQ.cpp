@@ -10,7 +10,7 @@ int main() {
 		random_shuffle(all(v));
 		RMQ<int> rmq(v);
 		krep(i,0,N) krep(j,i+1,N+1) {
-			int m = rmq.query(i,j);
+			int m = rmq.query(i,j-1);
 			int n = 1 << 29;
 			krep(k,i,j) n = min(n, v[k]);
 			assert(n == m);

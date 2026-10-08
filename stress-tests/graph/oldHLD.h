@@ -1,5 +1,22 @@
 
-#include "../../content/data-structures/SegmentTree.h"
+// Historical half-open max tree, kept independent as a reference oracle.
+struct Tree {
+ static constexpr int unit = INT_MIN;
+ vector<int> s; int n = 0;
+ Tree(int n = 0, int value = unit) : s(2*n, value), n(n) {}
+ void update(int p, int x) {
+  for (s[p += n] = x; p > 1; p /= 2)
+   s[p/2] = max(s[p], s[p^1]);
+ }
+ int query(int l, int r) {
+  int ans = unit;
+  for (l += n, r += n; l < r; l /= 2, r /= 2) {
+   if (l & 1) ans = max(ans, s[l++]);
+   if (r & 1) ans = max(ans, s[--r]);
+  }
+  return ans;
+ }
+};
 
 typedef vector<pii> vpi;
 

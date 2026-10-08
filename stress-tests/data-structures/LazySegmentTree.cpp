@@ -1,46 +1,45 @@
 #include "../utilities/template.h"
-
 #include "../../content/data-structures/LazySegmentTree.h"
+const int capacity = N;
+#undef N
+#undef L
 
-static unsigned R;
-int ra() {
-	R *= 791231;
-	R += 1231;
-	return (int)(R >> 1);
-}
-
-volatile int res;
 int main() {
-	int N = 10;
-	vi v(N);
-	iota(all(v), 0);
-	random_shuffle(all(v), [](int x) { return ra() % x; });
-	Node* tr = new Node(v,0,N);
-	krep(i,0,N) krep(j,0,N) if (i <= j) {
-		int ma = -inf;
-		krep(k,i,j) ma = max(ma, v[k]);
-		assert(ma == tr->query(i,j));
+	mt19937 rng(42);
+	vector<ll> a(capacity);
+	// Include the full, non-power-of-two capacity and its final element.
+	krep(i,0,capacity) lztree::modify(i, 3);
+	fill(all(a), 3);
+	lztree::modify(capacity-1, 9);
+	a.back() = 9;
+	assert(lztree::query(0, capacity-1) == accumulate(all(a), 0LL));
+	krep(it,0,10000) {
+		int l = int(rng() % capacity), r = int(rng() % capacity);
+		if (it % 2) l %= 37, r %= 37;
+		if (l > r) swap(l, r);
+		ll val = int(rng() % 100) - 50;
+		if (it % 3 == 0) {
+			lztree::modify(l, l, val);
+			a[l] += val;
+		} else if (it % 3 == 1) {
+			lztree::modify(l, val); a[l] = val;
+		}
+		assert(lztree::query(l, r) == accumulate(a.begin()+l, a.begin()+r+1, 0LL));
+		assert(lztree::query(l, l) == a[l]);
+		assert(lztree::query(0, capacity-1) == accumulate(all(a), 0LL));
 	}
-	krep(it,0,1000000) {
-		int i = ra() % (N+1), j = ra() % (N+1);
-		if (i > j) swap(i, j);
-		int x = (ra() % 10) - 5;
-
-		int r = ra() % 100;
-		if (r < 30) {
-			::res = tr->query(i, j);
-			int ma = -inf;
-			krep(k,i,j) ma = max(ma, v[k]);
-			assert(ma == ::res);
-		}
-		else if (r < 70) {
-			tr->add(i, j, x);
-			krep(k,i,j) v[k] += x;
-		}
-		else {
-			tr->set(i, j, x);
-			krep(k,i,j) v[k] = x;
-		}
+	// Check range-update endpoints through point queries. Aggregation is
+	// customizable; the supplied h does not scale additions by segment length.
+	lztree::modify(0, capacity-1, 3);
+	for (ll& x : a) x += 3;
+	krep(it,0,1000) {
+		int l = int(rng() % capacity), r = int(rng() % capacity);
+		if (l > r) swap(l, r);
+		ll val = int(rng() % 100) - 50;
+		lztree::modify(l, r, val);
+		krep(i,l,r+1) a[i] += val;
+		for (int p : {0, l, r, capacity-1, max(0,l-1), min(capacity-1,r+1)})
+			assert(lztree::query(p, p) == a[p]);
 	}
-	cout<<"Tests passed!"<<endl;
+	cout << "Tests passed!\n";
 }

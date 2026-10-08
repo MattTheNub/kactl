@@ -3,6 +3,15 @@
 #include "../../content/data-structures/FenwickTree2d.h"
 
 int main() {
+	{
+		FT2 ft(2);
+		ft.fakeUpdate(0, INT_MIN); ft.fakeUpdate(1, INT_MAX);
+		ft.init(); ft.update(0, INT_MIN, 3); ft.update(1, INT_MAX, 7);
+		assert(ft.query(-1, INT_MAX) == 0);
+		assert(ft.query(0, INT_MIN) == 3);
+		assert(ft.query(1, INT_MAX-1) == 3);
+		assert(ft.query(1, INT_MAX) == 10);
+	}
 	krep(it,0,1000000) {
 		FT2 ft(12);
 		vector<tuple<int, int, int>> upd;
@@ -22,7 +31,7 @@ int main() {
 
 		krep(i,0,13) {
 			krep(j,0,13) {
-				ll v = ft.query(i, j);
+				ll v = ft.query(i-1, j-1);
 				if (i == 0 || j == 0) assert(v == 0);
 				else {
 					sumto[i][j] = grid[i-1][j-1] + sumto[i-1][j] + sumto[i][j-1] - sumto[i-1][j-1];

@@ -3,20 +3,22 @@
  * Date: 2019-12-28
  * License: CC0
  * Source: https://github.com/hoke-t/tamu-kactl/blob/master/content/data-structures/MoQueries.h
- * Description: Answer interval or tree path queries by finding an approximate TSP through the queries,
- * and moving from one query to the next by adding/removing points at the ends.
+ * Description: Answer inclusive [l, r] interval or tree path queries by finding an approximate TSP through the queries
+ * and moving between queries by adding/removing points at the ends.
+ * Tree paths include both endpoints. Implement add/del/calc below.
+ * Use [l, l-1] for an empty array query.
  * If values are on tree edges, change \texttt{step} to add/remove the edge $(a, c)$ and remove the initial \texttt{add} call (but keep \texttt{in}).
  * Time: O(N \sqrt Q)
  * Status: stress-tested
  */
 #pragma once
 
-void add(int ind, int end) { ... } // add a[ind] (end = 0 or 1)
-void del(int ind, int end) { ... } // remove a[ind]
-int calc() { ... } // compute current answer
+void add(int ind, int end); // add a[ind] (end = 0 or 1)
+void del(int ind, int end); // remove a[ind]
+int calc(); // compute current answer
 
 vi mo(vector<pii> Q) {
-	int L = 0, R = 0, blk = 350; // ~N/sqrt(Q)
+	int L = 0, R = -1, blk = 350; // ~N/sqrt(Q)
 	vi s(sz(Q)), res = s;
 #define K(x) pii(x.first/blk, x.second ^ -(x.first/blk & 1))
 	iota(all(s), 0);
@@ -24,12 +26,13 @@ vi mo(vector<pii> Q) {
 	for (int qi : s) {
 		pii q = Q[qi];
 		while (L > q.first) add(--L, 0);
-		while (R < q.second) add(R++, 1);
+		while (R < q.second) add(++R, 1);
 		while (L < q.first) del(L++, 0);
-		while (R > q.second) del(--R, 1);
+		while (R > q.second) del(R--, 1);
 		res[qi] = calc();
 	}
 	return res;
+#undef K
 }
 
 vi moTree(vector<array<int, 2>> Q, vector<vi>& ed, int root=0){
@@ -42,7 +45,7 @@ vi moTree(vector<array<int, 2>> Q, vector<vi>& ed, int root=0){
 		if (dep) I[x] = N++;
 		for (int y : ed[x]) if (y != p) f(y, x, !dep, f);
 		if (!dep) I[x] = N++;
-		R[x] = N;
+		R[x] = N-1;
 	};
 	dfs(root, -1, 0, dfs);
 #define K(x) pii(I[x[0]] / blk, I[x[1]] ^ -(I[x[0]] / blk & 1))

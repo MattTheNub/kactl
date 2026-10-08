@@ -3,10 +3,10 @@
  * Date: 2014-11-28
  * License: CC0
  * Source: Folklore
- * Description: Calculate submatrix sums quickly, given upper-left and lower-right corners (half-open).
+ * Description: Calculate submatrix sums quickly, given upper-left and lower-right corners (both inclusive).
  * Usage:
  * SubMatrix<int> m(matrix);
- * m.sum(0, 0, 2, 2); // top left 4 elements
+ * m.sum(0, 0, 1, 1); // top left 4 elements
  * Time: O(N^2 + Q)
  * Status: Tested on Kattis
  */
@@ -22,6 +22,6 @@ struct SubMatrix {
 			p[r+1][c+1] = v[r][c] + p[r][c+1] + p[r+1][c] - p[r][c];
 	}
 	T sum(int u, int l, int d, int r) {
-		return p[d][r] - p[d][l] - p[u][r] + p[u][l];
+		return p[d+1][r+1] - p[d+1][l] - p[u][r+1] + p[u][l];
 	}
 };
