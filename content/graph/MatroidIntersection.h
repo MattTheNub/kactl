@@ -43,7 +43,6 @@ vi matroidIntersection(M1& m1, M2& m2, int n) {
 		}
 		vi par(n + 2, -1), q = {s};
 		par[s] = s;
-		// A shortest augmenting path preserves independence.
 		krep(i,0,sz(q)) {
 			if (par[t] != -1) break;
 			for (int v : adj[q[i]]) if (par[v] == -1)
