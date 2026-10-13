@@ -1,5 +1,5 @@
 #include "../UnitTest.h"
-#include "../../content/geometry/linearTransformation.h"
+#include "../../content/geometry/LinearTransformation.h"
 #include <fstream>
 #include <sstream>
 

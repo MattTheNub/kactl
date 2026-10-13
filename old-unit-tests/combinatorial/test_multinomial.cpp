@@ -1,5 +1,5 @@
 #include "../UnitTest.h"
-#include "../../content/combinatorial/multinomial.h"
+#include "../../content/combinatorial/Multinomial.h"
 
 class test_multinomial :
 	public UnitTest

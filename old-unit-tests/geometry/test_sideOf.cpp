@@ -1,5 +1,5 @@
 #include "../UnitTest.h"
-#include "../../content/geometry/sideOf.h"
+#include "../../content/geometry/SideOf.h"
 #include <fstream>
 #include <sstream>
 

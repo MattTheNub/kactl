@@ -1,6 +1,6 @@
 #include "../utilities/template.h"
 
-#include "../../content/graph/2sat.h"
+#include "../../content/graph/TwoSat.h"
 
 int main1() {
 	const int N = 100000, M = 10000000;

@@ -8,7 +8,7 @@
  */
 #pragma once
 
-#include "euclid.h"
+#include "Euclid.h"
 
 const ll mod = 17; // change to something else
 struct Mod {

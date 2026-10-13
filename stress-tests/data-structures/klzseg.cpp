@@ -1,6 +1,6 @@
 #include "../utilities/template.h"
 
-#include "../../content/data-structures/klzseg.h"
+#include "../../content/data-structures/KlzSeg.h"
 
 static unsigned R;
 int ra() {

@@ -1,5 +1,5 @@
 #include "../UnitTest.h"
-#include "../../content/geometry/circumcircle.h"
+#include "../../content/geometry/Circumcircle.h"
 #include <fstream>
 #include <sstream>
 

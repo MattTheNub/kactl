@@ -1,6 +1,6 @@
 #include "../utilities/template.h"
 
-#include "../../content/data-structures/FenwickTree2d.h"
+#include "../../content/data-structures/FenwickTree2D.h"
 
 int main() {
 	{

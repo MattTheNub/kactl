@@ -15,7 +15,7 @@
  */
 #pragma once
 
-#include "../data-structures/klzseg.h"
+#include "../data-structures/KlzSeg.h"
 
 template <bool VALS_EDGES> struct HLD {
 	int N, tim = 0;
