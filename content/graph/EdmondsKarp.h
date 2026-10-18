@@ -21,13 +21,13 @@ template<class T> T edmondsKarp(vector<unordered_map<int, T>>&
 		int ptr = 1;
 		q[0] = source;
 
-		krep(i,0,ptr) {
+		rep(i,0,ptr) {
 			int x = q[i];
 			for (auto e : graph[x]) {
-				if (par[e.first] == -1 && e.second > 0) {
-					par[e.first] = x;
-					q[ptr++] = e.first;
-					if (e.first == sink) goto out;
+				if (par[e.f] == -1 && e.s > 0) {
+					par[e.f] = x;
+					q[ptr++] = e.f;
+					if (e.f == sink) goto out;
 				}
 			}
 		}

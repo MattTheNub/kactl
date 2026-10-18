@@ -8,13 +8,13 @@ const vector<P> box = {P(-100,-100), P(100,-100), P(100,100), P(-100,100)};
 
 double area(const vector<P>& p) {
 	double a = 0;
-	krep(i,1,sz(p)-1) a += p[0].cross(p[i], p[i+1]);
+	rep(i,1,sz(p)-1) a += p[0].cross(p[i], p[i+1]);
 	return a / 2;
 }
 
 vector<Line> edges(const vector<P>& p) {
 	vector<Line> res;
-	krep(i,0,sz(p)) res.emplace_back(p[i], p[(i+1)%sz(p)]);
+	rep(i,0,sz(p)) res.emplace_back(p[i], p[(i+1)%sz(p)]);
 	return res;
 }
 
@@ -44,7 +44,7 @@ void check(vector<Line> lines, double expected = -1) {
 			abort();
 		}
 	}
-	krep(i,0,sz(res))
+	rep(i,0,sz(res))
 		assert(res[i].cross(res[(i+1)%sz(res)], res[(i+2)%sz(res)]) > -1e-6);
 }
 
@@ -70,10 +70,10 @@ int main() {
 	check({{P(0,1), P(-1,1+1e-10)}, {P(0,2), P(-1,2-1e-10)}});
 	check({{P(0,0), P(-1,-0.0)}, {P(0,1), P(-2,1)}});
 	check({{P(0,0), P(1,1e-8)}, {P(0,1), P(1,1+2e-8)}});
-	krep(it,0,30000) {
+	rep(it,0,30000) {
 		vector<Line> lines;
 		int n = int(rng() % 30);
-		krep(i,0,n) {
+		rep(i,0,n) {
 			auto coord = [&]() { return int(rng() % 41) - 20; };
 			P a(coord(), coord()), d(coord(), coord());
 			if (it % 4 >= 2) { a = a / 7; d = d / 11; }
@@ -88,7 +88,7 @@ int main() {
 	// A large bounded intersection exercises every deque entry.
 	vector<HP> h;
 	int n = 100000;
-	krep(i,0,n) {
+	rep(i,0,n) {
 		double a = 2 * acos(-1.0) * i / n;
 		P p(cos(a), sin(a));
 		h.emplace_back(p, p + p.perp());

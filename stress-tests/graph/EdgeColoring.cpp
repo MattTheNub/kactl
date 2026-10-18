@@ -12,7 +12,7 @@ void test(int n, const vector<pii>& ed) {
 	vi cols = edgeColoring(n, ed);
 	assert(sz(cols) == sz(ed));
 	vector<vector<bool>> usedCols(n, vector<bool>(maxdeg+1));
-	krep(i,0,sz(cols)) {
+	rep(i,0,sz(cols)) {
 		int col = cols[i];
 		assert(cols[i] <= maxdeg);
 		for (int x : {ed[i].first, ed[i].second}) {
@@ -23,11 +23,11 @@ void test(int n, const vector<pii>& ed) {
 }
 
 void testCorrect() {
-	krep(n,0,7) {
-		krep(edbits,0,(1 << (n*(n-1)/2))) {
+	rep(n,0,7) {
+		rep(edbits,0,(1 << (n*(n-1)/2))) {
 			vector<pii> ed;
 			int it = 0;
-			krep(i,0,n) krep(j,i+1,n) {
+			rep(i,0,n) rep(j,i+1,n) {
 				if (edbits & 1 << (it++)) {
 					ed.push_back({i, j});
 				}
@@ -36,7 +36,7 @@ void testCorrect() {
 				// test all k!*2^k input orders
 				sort(all(ed));
 				if (n != 0) do {
-					krep(bi,0,(1 << sz(ed))) {
+					rep(bi,0,(1 << sz(ed))) {
 						if (bi) {
 							int ind = __builtin_ctz(bi);
 							swap(ed[ind].first, ed[ind].second);
@@ -46,7 +46,7 @@ void testCorrect() {
 				} while (next_permutation(all(ed)));
 			} else {
 				int its = n == 5 ? 10 : 5;
-				krep(it,0,its) {
+				rep(it,0,its) {
 					shuffle_vec(ed);
 					for (auto& e : ed) if (randBool()) swap(e.first, e.second);
 					test(n, ed);
@@ -54,7 +54,7 @@ void testCorrect() {
 			}
 		}
 	}
-	krep(n,10,30) krep(it,0,200) {
+	rep(n,10,30) rep(it,0,200) {
 		int m = randIncl(n * (n-1) / 2);
 		vector<pii> ed = randomSimpleGraphAsEdgeList(n, m);
 		test(n, ed);
@@ -68,7 +68,7 @@ void testCorrect() {
 }
 
 void testPerfRandom() {
-	krep(i,0,100) {
+	rep(i,0,100) {
 		int n = 1000;
 		int m = 20000;
 		auto ed = randomSimpleGraphAsEdgeList(n, m);
@@ -81,7 +81,7 @@ void testPerfRegular() {
 	int k = 30;
 	// m = 45000
 	vector<pii> ed = randomRegularGraphAsEdgeList(n, k);
-	krep(i,0,100) edgeColoring(n, ed);
+	rep(i,0,100) edgeColoring(n, ed);
 }
 
 int main(int argc, char** argv) {

@@ -46,8 +46,8 @@ int Directed_MST(int root, int NV, int NE) {
 	int ret = 0;
 	int u, v;
 	while (true) {
-		krep(i,0,NV)   In[i] = inf;
-		krep(i,0,NE) {
+		rep(i,0,NV)   In[i] = inf;
+		rep(i,0,NE) {
 			u = E_copy[i].u;
 			v = E_copy[i].v;
 			if(E_copy[i].cost < In[v] && u != v) {
@@ -55,19 +55,19 @@ int Directed_MST(int root, int NV, int NE) {
 				pre[v] = u;
 			}
 		}
-		krep(i,0,NV) {
+		rep(i,0,NV) {
 			if(i == root)   continue;
 			if(In[i] == inf)    return -1; // no solution
 		}
 
 		int cnt = 0;
-		krep(i,0,NV) {
+		rep(i,0,NV) {
 			ID[i] = -1;
 			vis[i] = -1;
 		}
 		In[root] = 0;
 
-		krep(i,0,NV) {
+		rep(i,0,NV) {
 			ret += In[i];
 			int v = i;
 			while(vis[v] != i && ID[v] == -1 && v != root) {
@@ -82,10 +82,10 @@ int Directed_MST(int root, int NV, int NE) {
 			}
 		}
 		if(cnt == 0)    break;
-		krep(i,0,NV) {
+		rep(i,0,NV) {
 			if(ID[i] == -1) ID[i] = cnt++;
 		}
-		krep(i,0,NE) {
+		rep(i,0,NE) {
 			v = E_copy[i].v;
 			E_copy[i].u = ID[E_copy[i].u];
 			E_copy[i].v = ID[E_copy[i].v];
@@ -102,15 +102,15 @@ int Directed_MST(int root, int NV, int NE) {
 
 int adj[105][105];
 int main() {
-	krep(it,0,50000) {
+	rep(it,0,50000) {
 		bumpalloc.reset();
 		int n = (rand()%20)+1;
 		int density = rand() % 101;
 		int r = rand()%n;
 		int cnt = 0;
 		vector<Edge> edges;
-		krep(i,0,n)
-			krep(j,0,n){
+		rep(i,0,n)
+			rep(j,0,n){
 				if (i==j) continue;
 				if (rand() % 100 >= density) continue;
 				int weight = rand()%100;
@@ -137,7 +137,7 @@ int main() {
 			}
 			ll sum = 0;
 			vector<vi> ch(n);
-			krep(i,0,n) {
+			rep(i,0,n) {
 				if (i == r) assert(par[i] == -1);
 				else {
 					assert(par[i] != -1);
@@ -147,7 +147,7 @@ int main() {
 			}
 			assert(sum == ans1);
 			vi seen(n), q = {r};
-			krep(qi,0,sz(q)) {
+			rep(qi,0,sz(q)) {
 				int s = q[qi];
 				if (!seen[s]++)
 					for(auto &x: ch[s]) q.push_back(x);

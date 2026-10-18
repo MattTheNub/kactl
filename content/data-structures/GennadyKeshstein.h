@@ -23,7 +23,7 @@ pair<int, Node> walk(int le, function<bool(Node)> &pred,
 	if (le > m)
 		return walk(le, pred, pr, i << 1 | 1, m + 1, r);
 	auto p = walk(le, pred, pr, i << 1, l, m);
-	if (p.first == m)
-		p = walk(m + 1, pred, p.second, i << 1 | 1, m + 1, r);
+	if (p.f == m)
+		p = walk(m + 1, pred, p.s, i << 1 | 1, m + 1, r);
 	return p;
 }

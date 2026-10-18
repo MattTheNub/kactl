@@ -59,11 +59,11 @@ template<class M> struct Tracked : M {
 template<class M1, class M2>
 int brute(M1 a, M2 b, int n) {
 	int best = 0;
-	krep(mask,0,1 << n) {
+	rep(mask,0,1 << n) {
 		if (__builtin_popcount((unsigned)mask) <= best) continue;
 		a.clear(); b.clear();
 		bool ok = true;
-		krep(x,0,n) if (mask >> x & 1) {
+		rep(x,0,n) if (mask >> x & 1) {
 			if (!a.check(x) || !b.check(x)) { ok = false; break; }
 			a.add(x); b.add(x);
 		}
@@ -102,17 +102,17 @@ void test(M1 m1, M2 m2, int n, int want = -1) {
 int main() {
 	// Empty ground set; rank zero; free and uniform matroids.
 	test(Partition({}, {}), Partition({}, {}), 0, 0);
-	krep(n,1,15) krep(a,0,n + 1) krep(b,0,n + 1)
+	rep(n,1,15) rep(a,0,n + 1) rep(b,0,n + 1)
 		test(Partition(vi(n), {a}), Partition(vi(n), {b}),
 			n, min(a, b));
 	// Greedy takes (0,0); optimum must replace it by (0,1),(1,0).
 	test(Partition({0,0,1}, {1,1}),
 		Partition({0,1,0}, {1,1}), 3, 2);
 	// Force a final augmenting path through every selected element.
-	krep(k,1,40) {
+	rep(k,1,40) {
 		vi left, right;
-		krep(i,0,k) left.push_back(i), right.push_back(i);
-		krep(i,0,k + 1) {
+		rep(i,0,k) left.push_back(i), right.push_back(i);
+		rep(i,0,k + 1) {
 			left.push_back(i);
 			right.push_back((i + 1) % (k + 1));
 		}
@@ -120,7 +120,7 @@ int main() {
 			Partition(right, vi(k + 1, 1)), sz(left), k + 1);
 	}
 	srand(123456);
-	krep(it,0,1500) {
+	rep(it,0,1500) {
 		int n = randIncl(0, 11);
 		auto partition = [&]() {
 			int k = randIncl(1, 5);
@@ -151,12 +151,12 @@ int main() {
 		test(l, linear(), n);
 	}
 	// Larger matching instances, checked with a separate algorithm.
-	krep(it,0,200) {
+	rep(it,0,200) {
 		int l = randIncl(1, 30), r = randIncl(1, 30);
 		int n = randIncl(0, 200);
 		vi left(n), right(n), match(r, -1);
 		vector<vi> adj(l);
-		krep(x,0,n) {
+		rep(x,0,n) {
 			left[x] = randRange(l); right[x] = randRange(r);
 			adj[left[x]].push_back(right[x]);
 		}

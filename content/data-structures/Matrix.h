@@ -17,19 +17,19 @@ template<class T, int N> struct Matrix {
 	array<array<T, N>, N> d{};
 	M operator*(const M& m) const {
 		M a;
-		krep(i,0,N) krep(j,0,N)
-			krep(k,0,N) a.d[i][k] += d[i][j] * m.d[j][k];
+		rep(i,0,N) rep(j,0,N)
+			rep(k,0,N) a.d[i][k] += d[i][j] * m.d[j][k];
 		return a;
 	}
 	array<T, N> operator*(const array<T, N>& vec) const {
 		array<T, N> ret{};
-		krep(i,0,N) krep(j,0,N) ret[i] += d[i][j] * vec[j];
+		rep(i,0,N) rep(j,0,N) ret[i] += d[i][j] * vec[j];
 		return ret;
 	}
 	M operator^(ll p) const {
 		assert(p >= 0);
 		M a, b(*this);
-		krep(i,0,N) a.d[i][i] = 1;
+		rep(i,0,N) a.d[i][i] = 1;
 		while (p) {
 			if (p&1) a = a*b;
 			b = b*b;

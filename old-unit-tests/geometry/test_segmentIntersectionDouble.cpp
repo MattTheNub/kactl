@@ -94,7 +94,7 @@ public:
 		int n;
 		out >> n;
 		vector<Point<double> > v(2);
-		krep(i,0,n) out >> v[i];
+		rep(i,0,n) out >> v[i];
 
 		test1(p1,p2,p3,p4,n,v[0],v[1]);
 	}

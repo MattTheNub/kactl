@@ -43,7 +43,7 @@ void test(int n, int q) {
 			swap(pa.first, pa.second);
 	}
 	vi res = mo(queries);
-	krep(i,0,q) {
+	rep(i,0,q) {
 		int l = queries[i].first, r = queries[i].second;
 		assert(res[i] == l + (r - l + 1) * 10);
 	}
@@ -89,16 +89,16 @@ void testTr(int n, int q) {
 		pa[1] = rand() % n;
 	}
 	vi par(n), val(n);
-	krep(i,1,n) par[i] = rand() % i;
-	krep(i,0,n) val[i] = rand() % 1000;
+	rep(i,1,n) par[i] = rand() % i;
+	rep(i,0,n) val[i] = rand() % 1000;
 	vector<vi> ed(n);
-	krep(i,1,n) ed[par[i]].push_back(i), ed[i].push_back(par[i]);
+	rep(i,1,n) ed[par[i]].push_back(i), ed[i].push_back(par[i]);
 	MoTree::vals = val;
 	MoTree::sum = 0;
 	MoTree::path.clear();
 	vi res = moTree(queries, ed);
 	vi seen(n);
-	krep(i,0,q) {
+	rep(i,0,q) {
 		// Tree depth is logarithmic, so compute query answers naively
 		int l = queries[i][0], r = queries[i][1];
 		int at = l;
@@ -119,7 +119,7 @@ int main() {
 	treeMode = false;
 	assert((mo({{0,-1}, {0,0}, {3,2}, {2,4}, {0,-1}}) == vi{-1,10,-1,32,-1}));
 	srand(2);
-	krep(it,0,10) krep(n,1,15) krep(q,0,n*n) {
+	rep(it,0,10) rep(n,1,15) rep(q,0,n*n) {
 		testTr(n, q);
 	}
 	testTr(100'000, 100'000);
@@ -128,7 +128,7 @@ int main() {
 	test(100'000, 100'000);
 	test(1000, 100'000);
 	test(100'000, 1000);
-	krep(it,0,10) krep(n,1,15) krep(q,0,n*n) {
+	rep(it,0,10) rep(n,1,15) rep(q,0,n*n) {
 		test(n, q);
 	}
 	cout << "Tests passed!" << endl;

@@ -8,13 +8,13 @@ namespace ignore {
 #include "../../content/geometry/InsidePolygon.h"
 
 int main() {
-	krep(it,0,100000) {
+	rep(it,0,100000) {
 		int N = rand() % 15;
 		vector<P> ps;
-		krep(i,0,N) ps.emplace_back(rand() % 20 - 10, rand() % 20 - 10);
+		rep(i,0,N) ps.emplace_back(rand() % 20 - 10, rand() % 20 - 10);
 		vector<P> ps2 = convexHull(ps);
 		if (ps2.empty()) continue;
-		krep(it2,0,20) {
+		rep(it2,0,20) {
 			int x = rand() % 22 - 11;
 			int y = rand() % 22 - 11;
 			P p{x,y};

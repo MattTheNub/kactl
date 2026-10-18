@@ -134,16 +134,16 @@ void testAgainstBrute(int n, int iters, int queries) {
 }
 void testEdges() {
 	mt19937 rng(7);
-	krep(n,1,25) {
+	rep(n,1,25) {
 		vi par(n, -1), depth(n), value(n);
 		vector<vi> adj(n);
-		krep(v,1,n) {
+		rep(v,1,n) {
 			par[v] = int(rng()%v); depth[v] = depth[par[v]]+1;
 			adj[v].push_back(par[v]); adj[par[v]].push_back(v);
 		}
 		HLD<true> hld(adj);
 		hld.tree->set(0, n-1, 0);
-		krep(it,0,1000) {
+		rep(it,0,1000) {
 			int u = int(rng()%n), v = int(rng()%n), a = u, b = v;
 			vi path;
 			while (a != b) {
@@ -155,7 +155,7 @@ void testEdges() {
 			for (int x : path) value[x] += delta, expected = max(expected,value[x]);
 			assert(hld.queryPath(u,v) == expected);
 			int sub = int(rng()%n); expected = -inf;
-			krep(x,1,n) {
+			rep(x,1,n) {
 				int p = par[x];
 				while (p != -1 && p != sub) p = par[p];
 				if (p == sub) expected = max(expected,value[x]);

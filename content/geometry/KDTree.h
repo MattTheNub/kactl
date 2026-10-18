@@ -61,7 +61,7 @@ struct KDTree {
 
 		// search closest side first, other side if needed
 		auto best = search(f, p);
-		if (bsec < best.first)
+		if (bsec < best.f)
 			best = min(best, search(s, p));
 		return best;
 	}

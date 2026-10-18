@@ -12,11 +12,11 @@ int main() {
 		assert(ft.query(1, INT_MAX-1) == 3);
 		assert(ft.query(1, INT_MAX) == 10);
 	}
-	krep(it,0,1000000) {
+	rep(it,0,1000000) {
 		FT2 ft(12);
 		vector<tuple<int, int, int>> upd;
 		int c = rand() % 20;
-		krep(i,0,c) {
+		rep(i,0,c) {
 			upd.emplace_back(rand() % 12, rand() % 12, rand() % 10 - 5);
 		}
 
@@ -29,8 +29,8 @@ int main() {
 			ft.update(get<0>(pa), get<1>(pa), get<2>(pa));
 		}
 
-		krep(i,0,13) {
-			krep(j,0,13) {
+		rep(i,0,13) {
+			rep(j,0,13) {
 				ll v = ft.query(i-1, j-1);
 				if (i == 0 || j == 0) assert(v == 0);
 				else {

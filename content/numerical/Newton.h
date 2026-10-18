@@ -24,7 +24,7 @@ vl newton(ll a0, int n, F f) {
 		b.resize(m);
 		b = conv(b, polyInv(c, m));
 		a.resize(m);
-		krep(i,0,m) a[i] = (a[i] - b[i] + mod) % mod;
+		rep(i,0,m) a[i] = (a[i] - b[i] + mod) % mod;
 	}
 	return a;
 }

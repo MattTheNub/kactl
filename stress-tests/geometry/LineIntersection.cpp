@@ -4,7 +4,7 @@
 #include "../../content/geometry/LineDistance.h"
 
 int main() {
-	krep(t,0,1000000) {
+	rep(t,0,1000000) {
 		const int GRID=10;
 		Point<double>
 			a(rand()%GRID, rand()%GRID),

@@ -19,7 +19,7 @@ struct RollbackUF {
 	int time() { return sz(st); }
 	void rollback(int t) {
 		for (int i = time(); i --> t;)
-			e[st[i].first] = st[i].second;
+			e[st[i].f] = st[i].s;
 		st.resize(t);
 	}
 	bool join(int a, int b) {

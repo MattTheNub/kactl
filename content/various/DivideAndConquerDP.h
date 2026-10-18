@@ -19,11 +19,11 @@ struct DP { // Modify at will:
 		if (L >= R) return;
 		int mid = (L + R) >> 1;
 		pair<ll, int> best(LLONG_MAX, LO);
-		krep(k, max(LO,lo(mid)), min(HI,hi(mid)))
+		rep(k, max(LO,lo(mid)), min(HI,hi(mid)))
 			best = min(best, make_pair(f(mid, k), k));
-		store(mid, best.second, best.first);
-		rec(L, mid, LO, best.second+1);
-		rec(mid+1, R, best.second, HI);
+		store(mid, best.s, best.f);
+		rec(L, mid, LO, best.s+1);
+		rec(mid+1, R, best.s, HI);
 	}
 	void solve(int L, int R) { rec(L, R, INT_MIN, INT_MAX); }
 };

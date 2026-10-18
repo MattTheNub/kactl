@@ -37,7 +37,7 @@ bool circ(P p, P a, P b, P c) { // is p in the circumcircle?
 Q makeEdge(P orig, P dest) {
 	Q r = H ? H : new Quad{new Quad{new Quad{new Quad{0}}}};
 	H = r->o; r->r()->r() = r;
-	krep(i,0,4) r = r->rot, r->p = arb, r->o = i & 1 ? r : r->r();
+	rep(i,0,4) r = r->rot, r->p = arb, r->o = i & 1 ? r : r->r();
 	r->p = orig; r->F() = dest;
 	return r;
 }
@@ -94,7 +94,7 @@ pair<Q,Q> rec(const vector<P>& s) {
 vector<P> triangulate(vector<P> pts) {
 	sort(all(pts));  assert(unique(all(pts)) == pts.end());
 	if (sz(pts) < 2) return {};
-	Q e = rec(pts).first;
+	Q e = rec(pts).f;
 	vector<Q> q = {e};
 	int qi = 0;
 	while (e->o->F().cross(e->F(), e->p) < 0) e = e->o;

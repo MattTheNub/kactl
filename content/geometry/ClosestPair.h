@@ -19,12 +19,12 @@ pair<P, P> closest(vector<P> v) {
 	pair<ll, pair<P, P>> ret{LLONG_MAX, {P(), P()}};
 	int j = 0;
 	for (P p : v) {
-		P d{1 + (ll)sqrt(ret.first), 0};
+		P d{1 + (ll)sqrt(ret.f), 0};
 		while (v[j].y <= p.y - d.x) S.erase(v[j++]);
 		auto lo = S.lower_bound(p - d), hi = S.upper_bound(p + d);
 		for (; lo != hi; ++lo)
 			ret = min(ret, {(*lo - p).dist2(), {*lo, p}});
 		S.insert(p);
 	}
-	return ret.second;
+	return ret.s;
 }

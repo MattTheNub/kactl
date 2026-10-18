@@ -33,11 +33,11 @@ int main() {
 				{-2, 1}, {-1, 0}, {0, 0}, {1, 0}, {2, 0}};
 			for (auto& [k, m] : lines) k *= s, m *= s;
 			check(lines, {-10, -5, -1, 0, 0, 0, 1, 2, 10}, queryMax, interleave);
-			krep(it,0,10000) {
+			rep(it,0,10000) {
 				lines.clear();
 				vector<ll> xs;
 				ll k = -100, x = -100;
-				krep(j,0,100) {
+				rep(j,0,100) {
 					k += rng() % 4;
 					x += rng() % 4;
 					lines.emplace_back(s*k, (ll)(rng() % 201) - 100);

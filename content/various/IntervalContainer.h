@@ -12,13 +12,13 @@
 set<pii>::iterator addInterval(set<pii>& is, int L, int R) {
 	if (L > R) return is.end();
 	auto it = is.lower_bound({L, R}), before = it;
-	while (it != is.end() && (ll)it->first <= (ll)R + 1) {
-		R = max(R, it->second);
+	while (it != is.end() && (ll)it->f <= (ll)R + 1) {
+		R = max(R, it->s);
 		before = it = is.erase(it);
 	}
-	if (it != is.begin() && (ll)(--it)->second + 1 >= L) {
-		L = min(L, it->first);
-		R = max(R, it->second);
+	if (it != is.begin() && (ll)(--it)->s + 1 >= L) {
+		L = min(L, it->f);
+		R = max(R, it->s);
 		is.erase(it);
 	}
 	return is.insert(before, {L,R});
@@ -27,8 +27,8 @@ set<pii>::iterator addInterval(set<pii>& is, int L, int R) {
 void removeInterval(set<pii>& is, int L, int R) {
 	if (L > R) return;
 	auto it = addInterval(is, L, R);
-	auto r2 = it->second;
-	if (it->first == L) is.erase(it);
-	else { auto left = *it; is.erase(it); is.emplace(left.first, L-1); }
+	auto r2 = it->s;
+	if (it->f == L) is.erase(it);
+	else { auto left = *it; is.erase(it); is.emplace(left.f, L-1); }
 	if (R != r2) is.emplace(R+1, r2);
 }

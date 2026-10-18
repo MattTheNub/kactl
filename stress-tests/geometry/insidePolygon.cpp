@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define krep(i, a, b) for(int i = a; i < int(b); ++i)
+#define rep(i, a, b) for(int i = a; i < int(b); ++i)
 #define all(x) x.begin(), x.end()
 #define sz(x) (int)(x).size()
 
@@ -40,12 +40,12 @@ bool eq(P a, P b) {
 const int NUMPOLY=100;
 const int PTPERPOLY=100;
 void test(int numPts, int range) {
-	krep(i,0,NUMPOLY) {
+	rep(i,0,NUMPOLY) {
 		vector<P> poly;
-		krep(j,0, numPts)
+		rep(j,0, numPts)
 			poly.push_back(P(rand()%range, rand()%range));
 		poly = genPolygon(poly);
-		krep(i,0,PTPERPOLY){
+		rep(i,0,PTPERPOLY){
 			P p(rand()%range, rand()%range);
 			assert(inPolygon(poly, p, true) == old::insidePolygon(all(poly), p, true));
 			assert(inPolygon(poly, p, false) == old::insidePolygon(all(poly), p, false));

@@ -15,7 +15,7 @@
 
 vi edgeColoring(int N, vector<pii> eds) {
 	vi cc(N + 1), ret(sz(eds)), fan(N), free(N), loc;
-	for (pii e : eds) ++cc[e.first], ++cc[e.second];
+	for (pii e : eds) ++cc[e.f], ++cc[e.s];
 	int u, v, ncols = *max_element(all(cc)) + 1;
 	vector<vi> adj(N, vi(ncols, -1));
 	for (pii e : eds) {
@@ -40,7 +40,7 @@ vi edgeColoring(int N, vector<pii> eds) {
 		for (int y : {fan[0], u, end})
 			for (int& z = free[y] = 0; adj[y][z] != -1; z++);
 	}
-	krep(i,0,sz(eds))
+	rep(i,0,sz(eds))
 		for (tie(u, v) = eds[i]; adj[u][ret[i]] != v;) ++ret[i];
 	return ret;
 }

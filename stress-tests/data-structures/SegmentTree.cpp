@@ -9,7 +9,7 @@ int main() {
 		seg tree(size);
 		assert(tree.query(0, size-1) == 0);
 		vector<ll> a(size);
-		krep(it,0,10000) {
+		rep(it,0,10000) {
 			int p = int(rng() % size);
 			ll val = int(rng() % 100) - 50;
 			tree.modify(p, val); a[p] = val;

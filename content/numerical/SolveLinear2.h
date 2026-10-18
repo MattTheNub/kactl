@@ -10,10 +10,10 @@
 
 #include "SolveLinear.h"
 
-krep(j,0,n) if (j != i) // instead of krep(j,i+1,n)
+rep(j,0,n) if (j != i) // instead of rep(j,i+1,n)
 // ... then at the end:
 x.assign(m, undefined);
-krep(i,0,rank) {
-	krep(j,rank,m) if (fabs(A[i][j]) > eps) goto fail;
+rep(i,0,rank) {
+	rep(j,rank,m) if (fabs(A[i][j]) > eps) goto fail;
 	x[col[i]] = b[i] / A[i][i];
 fail:; }

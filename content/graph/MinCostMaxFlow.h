@@ -43,7 +43,7 @@ struct MCMF {
 		q.push({ 0, s });
 
 		while (!q.empty()) {
-			s = q.top().second; q.pop();
+			s = q.top().s; q.pop();
 			seen[s] = 1; di = dist[s] + pi[s];
 			for (edge& e : ed[s]) if (!seen[e.to]) {
 				ll val = di - pi[e.to] + e.cost;
@@ -57,7 +57,7 @@ struct MCMF {
 				}
 			}
 		}
-		krep(i,0,N) pi[i] = min(pi[i] + dist[i], INF);
+		rep(i,0,N) pi[i] = min(pi[i] + dist[i], INF);
 	}
 
 	pair<ll, ll> maxflow(int s, int t) {
@@ -73,7 +73,7 @@ struct MCMF {
 				ed[x->to][x->rev].flow -= fl;
 			}
 		}
-		krep(i,0,N) for(edge& e : ed[i]) totcost += e.cost * e.flow;
+		rep(i,0,N) for(edge& e : ed[i]) totcost += e.cost * e.flow;
 		return {totflow, totcost/2};
 	}
 
@@ -82,7 +82,7 @@ struct MCMF {
 		fill(all(pi), INF); pi[s] = 0;
 		int it = N, ch = 1; ll v;
 		while (ch-- && it--)
-			krep(i,0,N) if (pi[i] != INF)
+			rep(i,0,N) if (pi[i] != INF)
 			  for (edge& e : ed[i]) if (e.cap)
 				  if ((v = pi[i] + e.cost) < pi[e.to])
 					  pi[e.to] = v, ch = 1;

@@ -24,7 +24,7 @@ long double areaCT(P pa, P pb, long double r) {
 }
 long double circlePoly(P c, long double r, vector<P> poly) {
 	long double area = 0;
-	krep(i,0,sz(poly)){
+	rep(i,0,sz(poly)){
 		auto a = poly[i] - c, b = poly[(i+1)%sz(poly)] - c;
 		area += areaCT(a, b, r) * sgn(a.cross(b));
 	}

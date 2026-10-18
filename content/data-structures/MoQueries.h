@@ -20,15 +20,15 @@ int calc(); // compute current answer
 vi mo(vector<pii> Q) {
 	int L = 0, R = -1, blk = 350; // ~N/sqrt(Q)
 	vi s(sz(Q)), res = s;
-#define K(x) pii(x.first/blk, x.second ^ -(x.first/blk & 1))
+#define K(x) pii(x.f/blk, x.s ^ -(x.f/blk & 1))
 	iota(all(s), 0);
 	sort(all(s), [&](int s, int t){ return K(Q[s]) < K(Q[t]); });
 	for (int qi : s) {
 		pii q = Q[qi];
-		while (L > q.first) add(--L, 0);
-		while (R < q.second) add(++R, 1);
-		while (L < q.first) del(L++, 0);
-		while (R > q.second) del(R--, 1);
+		while (L > q.f) add(--L, 0);
+		while (R < q.s) add(++R, 1);
+		while (L < q.f) del(L++, 0);
+		while (R > q.s) del(R--, 1);
 		res[qi] = calc();
 	}
 	return res;
@@ -51,7 +51,7 @@ vi moTree(vector<array<int, 2>> Q, vector<vi>& ed, int root=0){
 #define K(x) pii(I[x[0]] / blk, I[x[1]] ^ -(I[x[0]] / blk & 1))
 	iota(all(s), 0);
 	sort(all(s), [&](int s, int t){ return K(Q[s]) < K(Q[t]); });
-	for (int qi : s) krep(end,0,2) {
+	for (int qi : s) rep(end,0,2) {
 		int &a = pos[end], b = Q[qi][end], i = 0;
 #define step(c) { if (in[c]) { del(a, end); in[a] = 0; } \
                   else { add(c, end); in[c] = 1; } a = c; }

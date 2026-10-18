@@ -21,7 +21,7 @@ vi matroidIntersection(M1& m1, M2& m2, int n) {
 	vi in(n);
 	for (;;) {
 		vi cur, out;
-		krep(x,0,n) (in[x] ? cur : out).push_back(x);
+		rep(x,0,n) (in[x] ? cur : out).push_back(x);
 		auto build = [&](int skip) {
 			m1.clear(); m2.clear();
 			for (int x : cur) if (x != skip)
@@ -43,7 +43,7 @@ vi matroidIntersection(M1& m1, M2& m2, int n) {
 		}
 		vi par(n + 2, -1), q = {s};
 		par[s] = s;
-		krep(i,0,sz(q)) {
+		rep(i,0,sz(q)) {
 			if (par[t] != -1) break;
 			for (int v : adj[q[i]]) if (par[v] == -1)
 				par[v] = q[i], q.push_back(v);

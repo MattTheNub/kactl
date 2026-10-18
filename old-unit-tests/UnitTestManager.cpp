@@ -92,7 +92,7 @@ void UnitTestManager::runTest(UnitTestWrapper* unitTestWrapper)
 	int count = unitTest->getCount();
 	string name = unitTest->getName();
 
-	krep(i, 0, count)
+	rep(i, 0, count)
 	{
 		fprintf(stderr, "Running test \"%s\" <%d, %d>... ",
 			name.c_str(), i, unitTest->getCount());
@@ -131,7 +131,7 @@ int main(int argc, char** argv)
 {
 	if(argc >= 2)
 	{
-		krep(i, 1, argc)
+		rep(i, 1, argc)
 			UnitTestManager::getInstance()->runTest(argv[i]);
 	}
 	else

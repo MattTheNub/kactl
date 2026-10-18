@@ -6,17 +6,17 @@
 int main() {
 	assert((H(1)*2+1-3).get() == 0);
 
-	krep(it,0,10000) {
+	rep(it,0,10000) {
 		int n = rand() % 10;
 		int alpha = rand() % 10 + 1;
 		string s;
-		krep(i,0,n) s += (char)('a' + rand() % alpha);
+		rep(i,0,n) s += (char)('a' + rand() % alpha);
 		HashInterval hi(s);
 		set<string> strs;
 		set<ull> hashes;
 
 		// HashInterval
-		krep(i,0,n+1) krep(j,i,n+1) {
+		rep(i,0,n+1) rep(j,i,n+1) {
 			string sub = s.substr(i, j - i);
 			ull hash = hashString(sub).get();
 			assert(hi.hashInterval(i, j-1).get() == hash);
@@ -25,10 +25,10 @@ int main() {
 		}
 
 		// getHashes
-		krep(le,1,n+1) {
+		rep(le,1,n+1) {
 			auto ve = getHashes(s, le);
 			assert(sz(ve) == n-le+1);
-			krep(i,0,n-le+1) {
+			rep(i,0,n-le+1) {
 				assert(ve[i].get() == hi.hashInterval(i, i + le-1).get());
 			}
 		}

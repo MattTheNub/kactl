@@ -7,7 +7,7 @@ template<class I> vi lisWeak(const vector<I>& S) {
 	vi prev(sz(S));
 	typedef pair<I, int> p;
 	vector<p> res;
-	krep(i,0,sz(S)) {
+	rep(i,0,sz(S)) {
 		// 0 -> i for longest non-decreasing subsequence
 		auto it = lower_bound(all(res), p{S[i], i});
 		if (it == res.end()) res.emplace_back(), it = res.end()-1;
@@ -21,21 +21,21 @@ template<class I> vi lisWeak(const vector<I>& S) {
 }
 
 int main() {
-	krep(weak,0,2) {
+	rep(weak,0,2) {
 		auto lt = [weak](int a, int b) { return weak ? a <= b : a < b; };
-		krep(it,0,1000000) {
+		rep(it,0,1000000) {
 			int n = rand() % 7;
 			vi v(n);
 			for(auto &x: v) x = rand() % 4;
 			vi inds = weak ? lisWeak(v) : lis(v);
-			krep(i,0,sz(inds)-1) {
+			rep(i,0,sz(inds)-1) {
 				assert(lt(v[inds[i]], v[inds[i+1]]));
 			}
-			krep(bi,0,(1 << n)) {
+			rep(bi,0,(1 << n)) {
 				int si = (int)bitset<32>(bi).count();
 				if (si <= sz(inds)) continue;
 				int prev = INT_MIN;
-				krep(i,0,n) if (bi & (1 << i)) {
+				rep(i,0,n) if (bi & (1 << i)) {
 					if (!lt(prev, v[i])) goto next;
 					prev = v[i];
 				}

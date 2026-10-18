@@ -57,8 +57,8 @@ vector<P> hpInter(vector<HP> h) {
 	while (sz(q) > 2 && q.back().out(q[0].inter(q[1]))) q.pop_front();
 	if (sz(q) < 3 || q[0].parallel(q.back())) return {};
 	vector<P> res;
-	krep(i,0,sz(q)) res.push_back(q[i].inter(q[(i+1)%sz(q)]));
+	rep(i,0,sz(q)) res.push_back(q[i].inter(q[(i+1)%sz(q)]));
 	double area = 0;
-	krep(i,1,sz(res)-1) area += res[0].cross(res[i], res[i+1]);
+	rep(i,1,sz(res)-1) area += res[0].cross(res[i], res[i+1]);
 	return area > 2 * eps ? res : vector<P>{};
 }

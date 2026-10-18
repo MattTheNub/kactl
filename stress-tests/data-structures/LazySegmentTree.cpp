@@ -9,12 +9,12 @@ void test(int capacity) {
 	assert(tree.query(0, capacity-1) == 0);
 	vector<ll> a(capacity);
 	// Include the full, non-power-of-two capacity and its final element.
-	krep(i,0,capacity) tree.modify(i, 3);
+	rep(i,0,capacity) tree.modify(i, 3);
 	fill(all(a), 3);
 	tree.modify(capacity-1, 9);
 	a.back() = 9;
 	assert(tree.query(0, capacity-1) == accumulate(all(a), 0LL));
-	krep(it,0,10000) {
+	rep(it,0,10000) {
 		int l = int(rng() % capacity), r = int(rng() % capacity);
 		if (it % 2) l %= 37, r %= 37;
 		if (l > r) swap(l, r);
@@ -33,12 +33,12 @@ void test(int capacity) {
 	// customizable; the supplied h does not scale additions by segment length.
 	tree.modify(0, capacity-1, 3);
 	for (ll& x : a) x += 3;
-	krep(it,0,1000) {
+	rep(it,0,1000) {
 		int l = int(rng() % capacity), r = int(rng() % capacity);
 		if (l > r) swap(l, r);
 		ll val = int(rng() % 100) - 50;
 		tree.modify(l, r, val);
-		krep(i,l,r+1) a[i] += val;
+		rep(i,l,r+1) a[i] += val;
 		for (int p : {0, l, r, capacity-1, max(0,l-1), min(capacity-1,r+1)})
 			assert(tree.query(p, p) == a[p]);
 	}
