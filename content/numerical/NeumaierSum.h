@@ -8,6 +8,7 @@
  * $\epsilon |\sum a_i|/2 +
  * (3n^2/16+n/4)\epsilon^2\sum |a_i|$.
  * Sum must be finite and not overflow. Do not use with {\tt Ofast}.
+ * Use only in desparate situations.
  * Time: O(n)
  * Status: stress-tested
  */

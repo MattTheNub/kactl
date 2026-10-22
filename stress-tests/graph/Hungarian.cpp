@@ -2,7 +2,7 @@
 #include "../utilities/utils.h"
 #include "../utilities/random.h"
 
-#include "../../content/graph/WeightedMatching.h"
+#include "../../content/graph/Hungarian.h"
 #include <bits/extc++.h> /// include-line, keep-include
 #include "../../content/graph/MinCostMaxFlow.h"
 
@@ -29,7 +29,7 @@ void test(int N, int mxCost, int iters) {
 		}
 		mcmf.setpi(s);
 		auto maxflow = mcmf.maxflow(s, t);
-		auto matching = weightedMatching(cost);
+		auto matching = hungarian(cost);
 		assert(maxflow.first == n);
 		assert(maxflow.second == matching.first);
 		int matchSum = 0;
