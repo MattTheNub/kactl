@@ -5,26 +5,26 @@
  * Source: https://codeforces.com/blog/entry/53170, https://github.com/bqi343/USACO/blob/master/Implementations/content/graphs%20(12)/Trees%20(10)/HLD%20(10.3).h
  * Description: Decomposes a tree into vertex disjoint heavy paths and light
  * edges such that the path from any leaf to the root contains at most log(n)
- * light edges. Code does additive modifications and max queries, but can
- * support commutative segtree modifications/queries on paths and subtrees.
+ * light edges. Supports commutative segtree modifications/queries on paths
+ * and subtrees. Customize lzseg for the desired operations.
  * Takes as input the full adjacency list. VALS\_EDGES being true means that
  * values are stored in the edges, as opposed to the nodes. All values
  * initialized to the segtree default. Root must be 0. Segment bounds passed to op are inclusive.
  * Time: O((\log N)^2)
- * Status: stress-tested against old HLD
+ * Status: stress-tested against brute force
  */
 #pragma once
 
-#include "../data-structures/KlzSeg.h"
+#include "../data-structures/LazySegmentTree.h"
 
 template <bool VALS_EDGES> struct HLD {
 	int N, tim = 0;
 	vector<vi> adj;
 	vi par, siz, rt, pos;
-	Node *tree;
+	lzseg tree;
 	HLD(vector<vi> adj_)
 		: N(sz(adj_)), adj(adj_), par(N, -1), siz(N, 1),
-		  rt(N),pos(N),tree(new Node(0, N-1)){ dfsSz(0); dfsHld(0); }
+		  rt(N),pos(N),tree(N){ dfsSz(0); dfsHld(0); }
 	void dfsSz(int v) {
 		for (int& u : adj[v]) {
 			adj[u].erase(find(all(adj[u]), v));
@@ -49,17 +49,17 @@ template <bool VALS_EDGES> struct HLD {
 		}
 		op(pos[u] + VALS_EDGES, pos[v]);
 	}
-	void modifyPath(int u, int v, int val) {
-		process(u, v, [&](int l, int r) { tree->add(l, r, val); });
+	void modifyPath(int u, int v, lzseg::U val) {
+		process(u, v, [&](int l, int r) { tree.modify(l, r, val); });
 	}
-	int queryPath(int u, int v) { // Modify depending on problem
-		int res = -1e9;
+	lzseg::T queryPath(int u, int v) {
+		lzseg::T res = tree.idT;
 		process(u, v, [&](int l, int r) {
-				res = max(res, tree->query(l, r));
+				res = tree.f(res, tree.query(l, r));
 		});
 		return res;
 	}
-	int querySubtree(int v) { // modifySubtree is similar
-		return tree->query(pos[v] + VALS_EDGES, pos[v] + siz[v] - 1);
+	lzseg::T querySubtree(int v) { // modifySubtree is similar
+		return tree.query(pos[v] + VALS_EDGES, pos[v] + siz[v] - 1);
 	}
 };

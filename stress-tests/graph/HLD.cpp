@@ -1,176 +1,68 @@
 #include "../utilities/template.h"
 #include "../utilities/genTree.h"
-
 #include "../../content/graph/HLD.h"
 
-namespace old {
-#include "oldHLD.h"
-}
-struct bruteforce { // values in nodes
-	vector<vector<int>> tree;
-	vector<int> vals;
-	vector<int> pars;
-	int unit = -1e9;
-	int f(int a, int b) { return max(a, b); }
-	void root(int cur, int p = -1) {
-		pars[cur] = p;
-		for (auto i: tree[cur]) {
-			if (i != p) root(i, cur);
-		}
-	}
-	bruteforce(vector<vector<int>> _tree): tree(_tree), vals(sz(tree)), pars(sz(tree)) {
-		root(0);
-	}
-	bool dfsModify(int cur, int target, int val, int p=-1) {
-		if (cur == target) {
-			vals[cur] += val;
-			return true;
-		}
-		bool alongPath = false;
-		for (auto i: tree[cur]) {
-			if (i == p) continue;
-			alongPath |= dfsModify(i, target, val, cur);
-		}
-		if (alongPath) vals[cur] += val;
-		return alongPath;
-	}
-	void modifyPath(int a, int b, int val) {
-		dfsModify(a, b, val);
-	}
-
-	int dfsQuery(int cur, int target, int p = -1) {
-		if (cur == target) {
-			return vals[cur];
-		}
-		int res = unit;
-		for (auto i: tree[cur]) {
-			if (i == p) continue;
-			res = f(res, dfsQuery(i, target, cur));
-		}
-		if (res != unit) {
-			return f(res, vals[cur]);
-		}
-		return res;
-	}
-	int queryPath(int a, int b) {
-		return dfsQuery(a, b);
-	}
-	int dfsSubtree(int cur, int p) {
-		int res = vals[cur];
-		for (auto i: tree[cur]) {
-			if (i != p)
-				res = f(res, dfsSubtree(i, cur));
-		}
-		return res;
-	}
-	int querySubtree(int a) {
-		return dfsSubtree(a, pars[a]);
-	}
-};
-
-void testAgainstOld(int n, int iters, int queries) {
-	for (int trees = 0; trees < iters; trees++) {
-		auto graph = genRandomTree(n);
-		vector<vector<int>> tree1(n);
-		vector<vector<pair<int, int>>> tree2(n);
-		for (auto i : graph) {
-			tree1[i.first].push_back(i.second);
-			tree1[i.second].push_back(i.first);
-		}
-		for (int i = 0; i < sz(tree1); i++) {
-			for (auto j : tree1[i]) {
-				tree2[i].push_back({j, 0});
-			}
-		}
-		HLD<false> hld(tree1);
-		old::HLD hld2(tree2);
-		hld.tree->set(0, n-1, 0);
-		for (int itr = 0; itr < queries; itr++) {
-			if (rand() % 2) {
-				int node = rand() % n;
-				int val = rand() % 10;
-				hld2.update(node, val);
-				hld.modifyPath(node, node, val - hld.queryPath(node, node));
-			} else {
-				int a = rand() % n;
-				int b = rand() % n;
-				assert(hld.queryPath(a, b) == hld2.query2(a, b).first);
-			}
-		}
-	}
-}
-void testAgainstBrute(int n, int iters, int queries) {
-	for (int trees = 0; trees < iters; trees++) {
-		auto graph = genRandomTree(n);
-		vector<vector<int>> tree1(n);
-		for (auto i : graph) {
-			tree1[i.first].push_back(i.second);
-			tree1[i.second].push_back(i.first);
-		}
-		HLD<false> hld(tree1);
-		bruteforce hld2(tree1);
-		hld.tree->set(0, n-1, 0);
-		for (int itr = 0; itr < queries; itr++) {
-			int rng = rand() % 3;
-			if (rng == 0) {
-				int a = rand() % n;
-				int b = rand() % n;
-				int val = rand() % 10;
-				hld.modifyPath(a, b, val);
-				hld2.modifyPath(a, b, val);
-			} else if (rng == 1){
-				int a = rand() % n;
-				int b = rand() % n;
-				hld.queryPath(a, b);
-				hld2.queryPath(a, b);
-				assert(hld.queryPath(a, b) == hld2.queryPath(a, b));
-			} else if (rng == 2) {
-				int a = rand() % n;
-				assert(hld.querySubtree(a) == hld2.querySubtree(a));
-			}
-		}
-	}
-
-}
-void testEdges() {
+template<bool EDGES> void test(int n, int iters) {
 	mt19937 rng(7);
-	rep(n,1,25) {
-		vi par(n, -1), depth(n), value(n);
+	rep(it,0,iters) {
 		vector<vi> adj(n);
-		rep(v,1,n) {
-			par[v] = int(rng()%v); depth[v] = depth[par[v]]+1;
-			adj[v].push_back(par[v]); adj[par[v]].push_back(v);
+		for (auto [u, v] : n == 1 ? vector<pii>{} : genRandomTree(n)) {
+			adj[u].push_back(v);
+			adj[v].push_back(u);
 		}
-		HLD<true> hld(adj);
-		hld.tree->set(0, n-1, 0);
-		rep(it,0,1000) {
+		HLD<EDGES> hld(adj), ranges(adj);
+		vi par(n, -1), depth(n);
+		auto root = [&](auto&& self, int v) -> void {
+			for (int u : adj[v]) if (u != par[v]) {
+				par[u] = v;
+				depth[u] = depth[v] + 1;
+				self(self, u);
+			}
+		};
+		root(root, 0);
+		vector<ll> vals(n), added(n);
+		rep(q,0,1000) {
 			int u = int(rng()%n), v = int(rng()%n), a = u, b = v;
 			vi path;
 			while (a != b) {
 				if (depth[a] < depth[b]) swap(a,b);
-				path.push_back(a); a = par[a];
+				path.push_back(a);
+				a = par[a];
 			}
-			int delta = int(rng()%21)-10, expected = -inf;
-			hld.modifyPath(u,v,delta);
-			for (int x : path) value[x] += delta, expected = max(expected,value[x]);
+			if (!EDGES) path.push_back(a);
+			ll value = (ll(rng()%21)-10) * 1000000000LL;
+			// The default lzseg supports point updates and range sums.
+			// Edge values are stored at the child endpoint.
+			if (!EDGES || u != 0) {
+				hld.tree.modify(hld.pos[u], value);
+				vals[u] = value;
+			}
+			ll expected = 0;
+			for (int x : path) expected += vals[x];
 			assert(hld.queryPath(u,v) == expected);
-			int sub = int(rng()%n); expected = -inf;
-			rep(x,1,n) {
-				int p = par[x];
+			int sub = int(rng()%n);
+			expected = 0;
+			rep(x,0,n) {
+				int p = EDGES ? par[x] : x;
 				while (p != -1 && p != sub) p = par[p];
-				if (p == sub) expected = max(expected,value[x]);
+				if (p == sub) expected += vals[x];
 			}
 			assert(hld.querySubtree(sub) == expected);
+			// Default h does not scale additions by segment length, so
+			// validate path additions through individual values.
+			ranges.modifyPath(u,v,value);
+			for (int x : path) added[x] += value;
+			rep(x,0,n)
+				assert(ranges.tree.query(ranges.pos[x], ranges.pos[x]) == added[x]);
 		}
 	}
 }
+
 int main() {
-	testEdges();
 	srand(2);
-	testAgainstBrute(5, 1000, 10000);
-	testAgainstBrute(1000, 100, 100);
-	testAgainstOld(5, 1000, 100);
-	testAgainstOld(10000, 100, 1000);
-	cout<<"Tests passed!"<<endl;
-	return 0;
+	for (int n : {1, 2, 5, 24, 1000}) {
+		test<false>(n, 10);
+		test<true>(n, 10);
+	}
+	cout << "Tests passed!\n";
 }

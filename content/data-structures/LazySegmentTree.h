@@ -50,6 +50,7 @@ struct lzseg {
 		while(p > 1) calc(p /= 2);
 	}
 	void modify(ll l, ll r, U v) {
+		if (l > r) return;
 		push(l), push(r);
 		bool cl = false, cr = false;
 		for(l += n, r += n + 1; l < r; l /= 2, r /= 2) {
@@ -64,6 +65,7 @@ struct lzseg {
 		}
 	}
 	T query(ll l, ll r) {
+		if (l > r) return idT;
 		push(l), push(r);
 		T resl = idT, resr = idT;
 		for(l += n, r += n + 1; l < r; l /= 2, r /= 2) {

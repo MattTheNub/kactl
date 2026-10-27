@@ -6,7 +6,7 @@ void test(int capacity) {
 	lzseg tree(capacity), other(3);
 	other.modify(1, 17);
 	other.modify(0, 2, 5);
-	assert(tree.query(0, capacity-1) == 0);
+	assert(tree.query(0, capacity-1) == tree.idT);
 	vector<ll> a(capacity);
 	// Include the full, non-power-of-two capacity and its final element.
 	rep(i,0,capacity) tree.modify(i, 3);
@@ -42,6 +42,10 @@ void test(int capacity) {
 		for (int p : {0, l, r, capacity-1, max(0,l-1), min(capacity-1,r+1)})
 			assert(tree.query(p, p) == a[p]);
 	}
+	ll before = tree.query(0, capacity-1);
+	tree.modify(capacity, capacity-1, 123);
+	assert(tree.query(capacity, capacity-1) == tree.idT);
+	assert(tree.query(0, capacity-1) == before);
 	for (int p = 0; p < 3; ++p)
 		assert(other.query(p, p) == (p == 1 ? 22 : 5));
 }
