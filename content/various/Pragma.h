@@ -5,6 +5,6 @@
  * Description: cheese lol
  */
 
-// make sure to #include <vector> first
+#include <vector> /** keep-include */
 #pragma GCC optimize("O3,unroll-loops")
 #pragma GCC target("avx2,bmi,bmi2,popcnt,lzcnt,tune=native")
