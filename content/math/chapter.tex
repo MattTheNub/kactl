@@ -3,6 +3,7 @@
 
 \chapter{Mathematics}
 
+
 \section{Recurrences}
 If $a_n = c_1 a_{n-1} + \dots + c_k a_{n-k}$, and $r_1, \dots, r_k$ are distinct roots of $x^k - c_1 x^{k-1} - \dots - c_k$, there are $d_1, \dots, d_k$ s.t.
 \[a_n = d_1r_1^n + \dots + d_kr_k^n. \]
@@ -50,6 +51,16 @@ z = r\cos\theta & \phi = \textrm{atan2}(y,x)
 	1^3 + 2^3 + 3^3 + \dots + n^3 &= \frac{n^2(n+1)^2}{4} \\
 	1^4 + 2^4 + 3^4 + \dots + n^4 &= \frac{n(n+1)(2n+1)(3n^2 + 3n - 1)}{30} \\
 \end{align*}
+
+\section{Polynomial interpolation}
+\[P(x)=\prod_{j=0}^{n-1}(x-x_j)\]
+\[
+P'(x_i) = \prod_{j \ne i}(x_i-x_j)
+\]
+For $n$ points $(x_i,y_i)$ with distinct $x_i$, the unique polynomial of degree at most $n-1$ passing through them is
+\[
+	p(x) = \sum_{i=0}^{n-1} y_i \prod_{j \ne i} \frac{x-x_j}{x_i-x_j} = \sum_{i=0}^{n-1} \frac{y_i}{P'(x_i)} \prod_{j \ne i} (x - x_j)
+\]
 
 \section{Distributions}
 
