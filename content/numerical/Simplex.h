@@ -55,6 +55,11 @@ struct LPSolver {
 			int s = -1;
 			rep(j,0,n+1) if (N[j] != -phase) ltj(D[x]);
 			if (D[x][s] >= -eps) return true;
+			// Bland's rule (slower, guarantees no cycles)
+			// replace the 2 lines above with:
+			// rep(j,0,n+1) if (N[j] != -phase && D[x][j] < -eps)
+			//     if (s == -1 || N[j] < N[s]) s = j;
+			// if (s == -1) return true;
 			int r = -1;
 			rep(i,0,m) {
 				if (D[i][s] <= eps) continue;
