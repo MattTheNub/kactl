@@ -208,6 +208,13 @@
 \lstset{aboveskip=3pt}
 \lstset{belowskip=2pt}
 
+% Print metadata independently of commentstyle.
+% The compact upright badge also works in monochrome and adds no line height.
+\newcommand{\kactlcheckpoint}[1]{%
+  \smash{\mbox{\normalfont\scriptsize\sffamily\color{red!75!black}%
+    \hspace{.3em}\ensuremath{\uparrow}\,#1}}%
+}
+
 \lstdefinelanguage{raw}{} % Raw language, no keywords.
 
 \setlength{\columnseprule}{0.5pt} % Multicol separation line with

@@ -18,7 +18,9 @@
   \kactlimport{HillClimbing.h}
   \kactlimport{Integrate.h}
   \kactlimport{IntegrateAdaptive.h}
-  {\lstset{commentstyle=\footnotesize\ttfamily\upshape}
+  {\lstdefinelanguage[Simplex]{C++}[ISO]{C++}{
+    morecomment=[s][\color{darkgray}\footnotesize\ttfamily\upshape]{/*}{*/}}
+  \lstset{defaultdialect=[Simplex]C++}
   \kactlimport{Simplex.h}}
 
 \section{Matrices}
