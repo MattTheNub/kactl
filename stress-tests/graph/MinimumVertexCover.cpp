@@ -81,7 +81,20 @@ int main() {
 				} */
 			}
 		};
-		vi cover1 = cover(gr, N, M);
+		vi r(M, -1);
+		int size_matching = hopcroftKarp(gr, r);
+		auto [cl, cr] = cover(gr, r);
+		assert(sz(cl) == N && sz(cr) == M);
+		vi cover1;
+		rep(i,0,N) {
+			assert(cl[i] == 0 || cl[i] == 1);
+			if (cl[i]) cover1.push_back(i);
+		}
+		rep(i,0,M) {
+			assert(cr[i] == 0 || cr[i] == 1);
+			if (cr[i]) cover1.push_back(N+i);
+		}
+		assert(sz(cover1) == size_matching);
 		vi cover2 = coverHK(gr, N, M);
 		assert(sz(cover1) == sz(cover2));
 		verify(cover1);
