@@ -68,15 +68,12 @@ def find_start_comment(source, start=None):
     return first
 
 def prefix_checkpoints(source):
-    """Annotate long listings without changing their code or line count.
+    """Annotate listings without changing their code or line count.
 
     Positions are chosen in the printed source, but identify code endpoints,
     not line numbers that the typist needs to reproduce.
     """
     lines = source.split('\n')
-    if len(lines) < 8:
-        return source
-
     original_lines = lines[:]
     candidates = []
     continued = False
@@ -92,6 +89,21 @@ def prefix_checkpoints(source):
             continue
         candidates.append(i)
 
+    def annotate(i):
+        # cpp diagnoses endpoints inside block comments/raw strings/etc.
+        # Hash the original prefix, before adding any display annotations.
+        prefix = '\n'.join(original_lines[:i + 1])
+        result = subprocess.run(
+            ['sh', 'content/contest/hash.sh'], input=prefix,
+            text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if result.returncode or result.stderr:
+            return False
+        digest = result.stdout.strip()
+        if len(digest) != 6 or any(c not in '0123456789abcdef' for c in digest):
+            return False
+        lines[i] += r' (*@\kactlcheckpoint{' + digest + r'}@*)'
+        return True
+
     # Aim for one checkpoint every five lines, using nearby short endpoints.
     previous = -1
     for target in range(4, len(lines) - 3, 5):
@@ -102,20 +114,12 @@ def prefix_checkpoints(source):
         nearby.sort(key=lambda i: (
             abs(i - target) + (0 if lines[i].strip() in ('}', '};') else 2), i))
         for i in nearby:
-            # cpp diagnoses endpoints inside block comments/raw strings/etc.
-            # Hash the original prefix, before adding any display annotations.
-            prefix = '\n'.join(original_lines[:i + 1])
-            result = subprocess.run(
-                ['sh', 'content/contest/hash.sh'], input=prefix,
-                text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            if result.returncode or result.stderr:
-                continue
-            digest = result.stdout.strip()
-            if len(digest) != 6 or any(c not in '0123456789abcdef' for c in digest):
-                continue
-            lines[i] += r' (*@\kactlcheckpoint{' + digest + r'}@*)'
-            previous = i
-            break
+            if annotate(i):
+                previous = i
+                break
+    last = len(lines) - 1
+    if last in candidates:
+        annotate(last)
     return '\n'.join(lines)
 
 def processwithcomments(caption, instream, outstream, listingslang):

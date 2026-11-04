@@ -52,9 +52,10 @@ The badges are print annotations, not code; do not type them into your file.
 Checkpoints are generated roughly every five lines, wherever a safe short
 endpoint is available within two lines of the target. The build prefers closing
 braces, falls back to short statement lines, and leaves at least three lines
-between checkpoints and after the last checkpoint. Listings shorter than eight
-lines are left alone. It adds no lines to the listing and keeps
-the existing whole-template hash and `hash.sh` unchanged.
+between partial checkpoints and before the last line. A full-template hash
+also appears on the last line when it is a safe endpoint with room for the
+badge, including in listings shorter than eight lines. It adds no lines to the
+listing and keeps the existing whole-template hash and `hash.sh` unchanged.
 
 ## Coding style
 

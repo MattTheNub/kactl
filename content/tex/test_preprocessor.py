@@ -39,8 +39,9 @@ class PrefixCheckpointsTest(unittest.TestCase):
             with self.subTest(lines=n):
                 source = '\n'.join('int x%d = %d;' % (i, i) for i in range(n))
                 points = self.checkpoints(source)
-                self.assertEqual(len(points), len(range(4, n - 3, 5)))
-                boundaries = [-1] + [i for i, _ in points] + [n - 1]
+                self.assertEqual(len(points), len(range(4, n - 3, 5)) + 1)
+                self.assertEqual(points[-1], (n - 1, digest(source)))
+                boundaries = [-1] + [i for i, _ in points]
                 self.assertTrue(all(b - a >= 3 for a, b in zip(boundaries, boundaries[1:])))
 
     def test_reflow_and_localization(self):
@@ -67,6 +68,25 @@ class PrefixCheckpointsTest(unittest.TestCase):
         source = '\n'.join('int ' + 'x' * 48 + ';' for _ in range(40))
         self.assertEqual(self.checkpoints(source), [])
 
+    def test_final_hash_on_short_listings(self):
+        for source in ('int x;', 'void f() {\n}', 'struct X {\n\tint x;\n};'):
+            with self.subTest(source=source):
+                self.assertEqual(self.checkpoints(source),
+                                 [(len(source.splitlines()) - 1, digest(source))])
+
+    def test_final_hash_width_limit(self):
+        for width in (52, 53):
+            with self.subTest(width=width):
+                source = '\n'.join(['int x;'] * 10 + ['int ' + 'x' * (width - 5) + ';'])
+                points = self.checkpoints(source)
+                self.assertEqual(any(i == 10 for i, _ in points), width == 52)
+
+    def test_unsafe_final_line(self):
+        for source in ('', '// comment;', '#define X 1;', '/*\nint x;',
+                       'auto s = R"tag(\nint x;', '#define X \\\nint x;'):
+            with self.subTest(source=source):
+                self.assertNotIn(r'\kactlcheckpoint{', preprocessor.prefix_checkpoints(source))
+
     def test_listing_integration(self):
         with open('content/graph/MinCostMaxFlow.h') as f:
             source = f.read()
@@ -82,6 +102,9 @@ class PrefixCheckpointsTest(unittest.TestCase):
                 outputs.append(output.getvalue())
         self.assertIn(r'\kactlcheckpoint{', outputs[1])
         self.assertEqual(re.sub(BADGE, '', outputs[1]), outputs[0])
+        heading_hash = re.search(r'\\rightcaption\{([0-9a-f]{6}),', outputs[1])[1]
+        self.assertRegex(outputs[1], BADGE.replace('([0-9a-f]{6})', heading_hash)
+                         + r'\n\\end\{lstlisting\}')
 
 
 if __name__ == '__main__':
