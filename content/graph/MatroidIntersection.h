@@ -10,7 +10,7 @@
  * without changing the represented set). The oracles must have
  * separate state; their initial contents are ignored, and both
  * contain the returned set on exit.
- * Time: O(n(r+1)^2 T), where r is the answer size and T bounds
+ * Time: O(n(r+1)^2 T), where $r$ is the answer size and $T$ bounds
  * each oracle operation. Uses O(n(r+1)) extra space.
  * Status: stress-tested
  */

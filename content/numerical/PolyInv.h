@@ -3,7 +3,7 @@
  * Date: 2026-10-07
  * License: CC0
  * Description: Returns $1/a$ modulo $x^n$. Requires
- * $a[0] \ne 0$, $n \ge 0$, coefficients in [0, mod).
+ * $a[0] \ne 0$, $n \ge 0$, coefficients in $[0, \mathrm{mod})$.
  * Time: O(n \log n)
  * Status: stress-tested
  */

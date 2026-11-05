@@ -4,7 +4,7 @@
  * License: CC0
  * Source: Folklore
  * Description: Range Minimum Queries on an array. Returns
- * min(V[a], V[a + 1], ... V[b]) in constant time.
+ * $\min(V[a], V[a + 1], \dots, V[b])$ in constant time.
  * Usage:
  *  RMQ rmq(values);
  *  rmq.query(l, r); // inclusive [l, r]

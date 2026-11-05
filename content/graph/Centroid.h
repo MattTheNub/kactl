@@ -3,7 +3,7 @@
  * Date: 2026-11-04
  * License: CC0
  * Description: Builds the centroid tree of an undirected tree.
- *  par[v] is the centroid parent of v, or -1 at the root.
+ *  $\mathrm{par}[v]$ is the centroid parent of $v$, or $-1$ at the root.
  * Time: O(N \log N), O(N) space.
  * Status: stress-tested
  */

@@ -3,7 +3,7 @@
  * Date: 2026-10-07
  * License: CC0
  * Description: Returns $[x^k]P(x)/Q(x)$. Requires
- * $Q[0] \ne 0$, $k \ge 0$, coefficients in [0, mod).
+ * $Q[0] \ne 0$, $k \ge 0$, coefficients in $[0, \mathrm{mod})$.
  * For a recurrence with initial terms $S$ and coefficients
  * $c$, use $Q = \{1,-c_0,-c_1,\ldots\}$ and
  * $P = S Q \bmod x^{|S|}$ (normalize coefficients).

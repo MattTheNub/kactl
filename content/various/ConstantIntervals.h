@@ -3,7 +3,7 @@
  * Date: 2015-03-20
  * License: CC0
  * Source: me
- * Description: Split a monotone function on [from, to] into a minimal set of inclusive intervals on which it has the same value.
+ * Description: Split a monotone function on $[\mathrm{from}, \mathrm{to}]$ into a minimal set of inclusive intervals on which it has the same value.
  *  Runs a callback g for each such interval.
  * Usage: constantIntervals(0, sz(v)-1, [\&](int x){return v[x];}, [\&](int lo, int hi, T val){...});
  * Time: O(k\log\frac{n}{k})

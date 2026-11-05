@@ -4,7 +4,7 @@
  * License: CC0
  * Source: https://codeforces.com/blog/entry/53170, https://github.com/bqi343/USACO/blob/master/Implementations/content/graphs%20(12)/Trees%20(10)/HLD%20(10.3).h
  * Description: Decomposes a tree into vertex disjoint heavy paths and light
- * edges such that the path from any leaf to the root contains at most log(n)
+ * edges such that the path from any leaf to the root contains at most $\log n$
  * light edges. Supports commutative segtree modifications/queries on paths
  * and subtrees. Customize lzseg for the desired operations.
  * Takes as input the full adjacency list. VALS\_EDGES being true means that

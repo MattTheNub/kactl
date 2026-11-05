@@ -4,9 +4,9 @@
  * License: CC0
  * Description: Solves $F(a)=0$ modulo $x^n$, starting
  * from a constant root $a_0$. f(a, m) returns a pair
- * $(F(a), F'(a))$ modulo $x^m$; derivative is w.r.t. a.
+ * $(F(a), F'(a))$ modulo $x^m$; derivative is w.r.t. $a$.
  * Requires $F'(a_0)[0] \ne 0$, $n \ge 0$, coefficients
- * in [0, mod). Each step uses $a \gets a-F(a)/F'(a)$.
+ * in $[0, \mathrm{mod})$. Each step uses $a \gets a-F(a)/F'(a)$.
  * Time: O(n \log n) if f takes O(m \log m)
  * Status: stress-tested
  */

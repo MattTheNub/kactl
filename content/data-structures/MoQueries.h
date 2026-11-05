@@ -3,10 +3,10 @@
  * Date: 2019-12-28
  * License: CC0
  * Source: https://github.com/hoke-t/tamu-kactl/blob/master/content/data-structures/MoQueries.h
- * Description: Answer inclusive [l, r] interval or tree path queries by finding an approximate TSP through the queries
+ * Description: Answer inclusive $[l, r]$ interval or tree path queries by finding an approximate TSP through the queries
  * and moving between queries by adding/removing points at the ends.
  * Tree paths include both endpoints. Implement add/del/calc below.
- * Use [l, l-1] for an empty array query.
+ * Use $[l, l-1]$ for an empty array query.
  * If values are on tree edges, change \texttt{step} to add/remove the edge $(a, c)$ and remove the initial \texttt{add} call (but keep \texttt{in}).
  * Time: O(N \sqrt Q)
  * Status: stress-tested

@@ -4,7 +4,7 @@
  * License: CC0
  * Source: me
  * Description: Segment tree with ability to add or set values of large intervals, and compute max of intervals.
- * All constructor, query, and update bounds are inclusive [l, r].
+ * All constructor, query, and update bounds are inclusive $[l, r]$.
  * Can be changed to other things.
  * Use with a bump allocator for better performance, and SmallPtr or implicit indices to save memory.
  * Time: O(\log N).

@@ -3,7 +3,7 @@
  * Date: 2026-10-18
  * License: CC0
  * Source: folklore
- * Description: Add lines $kx+m$ and query maximum values (minimum if queryMax=false).
+ * Description: Add lines $kx+m$ and query maximum values (minimum if \texttt{queryMax=false}).
  *  Slopes must be nondecreasing for max, nonincreasing for min; query points
  *  must be nondecreasing. Queries require at least one line.
  *  Coefficient negation and evaluation arithmetic must fit in ll,

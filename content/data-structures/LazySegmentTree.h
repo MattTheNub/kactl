@@ -4,7 +4,7 @@
  * License: CC0
  * Source: me
  * Description: Zero-indexed iterative lazy segment tree on inclusive intervals
- * [l, r]. Customize f, g, h, and the identities for the desired operations.
+ * $[l, r]$. Customize f, g, h, and the identities for the desired operations.
  * Time: O(\log N).
  * Usage: lzseg tree(n); tree.modify(i, value); tree.modify(l, r, update); auto result = tree.query(l, r);
  * Status: jdurie says it's probably correct but he's still not sure

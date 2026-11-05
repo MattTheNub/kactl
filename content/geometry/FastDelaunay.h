@@ -8,7 +8,7 @@
  * There must be no duplicate points.
  * If all points are on a line, no triangles will be returned.
  * Should work for doubles as well, though there may be precision issues in 'circ'.
- * Returns triangles in order \{t[0][0], t[0][1], t[0][2], t[1][0], \dots\}, all counter-clockwise.
+ * Returns triangles in order $\{t[0][0], t[0][1], t[0][2], t[1][0], \dots\}$, all counter-clockwise.
  * Time: O(n \log n)
  * Status: stress-tested
  */

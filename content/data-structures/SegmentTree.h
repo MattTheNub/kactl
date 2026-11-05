@@ -4,7 +4,7 @@
  * License: unknown
  * Source: jdurie
  * Description: Zero-indexed sum-tree with point assignment and range sum queries.
- * Bounds are inclusive on both ends: [l, r]. Empty if l > r.
+ * Bounds are inclusive on both ends: $[l, r]$. Empty if $l > r$.
  * Can be changed by modifying T, f and id.
  * Time: O(\log N)
  * Usage: seg tree(n); tree.modify(i, value); auto result = tree.query(l, r);

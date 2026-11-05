@@ -7,8 +7,8 @@
  * with azimuthal angles (longitude) f1 ($\phi_1$) and f2 ($\phi_2$) from x axis and zenith angles
  * (latitude) t1 ($\theta_1$) and t2 ($\theta_2$) from z axis (0 = north pole). All angles measured
  * in radians. The algorithm starts by converting the spherical coordinates to cartesian coordinates
- * so if that is what you have you can use only the two last rows. dx*radius is then the difference
- * between the two points in the x direction and d*radius is the total distance between the points.
+ * so if that is what you have you can use only the two last rows. $\mathrm{dx}\cdot\mathrm{radius}$ is then the difference
+ * between the two points in the $x$ direction and $d\cdot\mathrm{radius}$ is the total distance between the points.
  * Status: tested on kattis:airlinehub
  */
 #pragma once
