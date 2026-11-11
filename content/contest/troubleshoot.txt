@@ -10,6 +10,7 @@ Print your solution! Print debug output, as well.
 Are you clearing all data structures between test cases?
 Can your algorithm handle the whole range of input?
 Read the full problem statement again.
+Remember that numbers can be zero or negative!
 Do you handle all corner cases correctly?
 Have you understood the problem correctly?
 Any uninitialized variables?
